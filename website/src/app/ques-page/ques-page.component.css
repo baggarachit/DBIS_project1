@@ -105,7 +105,12 @@ table, th, td {
     width: 75%;
     margin-top: 10px;
   }
-  .col-25-1 {
+  .col-50 {
+    float: right;
+    width: 24%;
+    margin-top: 10px;
+  }
+  /* .col-25-1 {
     float: left;
     width: 25%;
     margin-top: 10px;
@@ -115,7 +120,7 @@ table, th, td {
     float: right;
     width: 75%;
     margin-top: 10px;
-  }
+  } */
   
   /* Clear floats after the columns */
   .row:after {
