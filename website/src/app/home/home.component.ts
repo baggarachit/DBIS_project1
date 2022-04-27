@@ -14,8 +14,10 @@ export class HomeComponent implements OnInit {
   id!: string | null; 
   role!: string | null;
   data: any; 
-  colors: string[] = ['lightblue', 'lightgreen', 'lightpink', '#DDBDF1', 'lightred', 'lightpurple', 'yellow', 'lightgrey'];
-  tiles: any[] =[];
+  ta_data: any;
+  colors: string[] = ['lightblue', 'lightgreen', 'lightpink', '#DDBDF1', 'lightred', 'lightpurple', 'yellow', 'lightgrey', 'lightorange'];
+  tiles: any[]=[];
+  ta_tiles: any[]=[];
     // tiles: any[] = [
     //   {text: 'One', cols: 1, rows: 2, color: 'lightblue'},
     //   {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
@@ -31,11 +33,20 @@ export class HomeComponent implements OnInit {
       console.log(data);
       this.data = data;
       for(var i=0;i<this.data.length;i++){
-        this.tiles.push({text: this.data[i].name, cols: 1, rows: 2, color: this.colors[this.data[i].c_id%8], id: this.data[i].c_id});
+        this.tiles.push({text: this.data[i].name, cols: 1, rows: 2, color: this.colors[this.data[i].c_id%9], id: this.data[i].c_id, ista: false});
       }
       console.log(this.tiles);
+    })
+    if(this.role=='student'){
+      this.api.getData_ta(this.id).subscribe(data=>{
+      console.log(data);
+      this.ta_data = data;
+      for(var i=0;i<this.ta_data.length;i++){
+        this.tiles.push({text: this.ta_data[i].name, cols: 1, rows: 2, color: this.colors[this.ta_data[i].c_id%9], id: this.ta_data[i].c_id, ista: true});
+      }
     })  
-  } 
+   } 
+ }
   logout() {  
     GlobalConstants.isnav=false;
     console.log('logout');  

@@ -12,4 +12,8 @@ export class ApiService {
     let url="http://localhost:3080/courses/"+String(role)+"/"+String(uid);
     return this.http.get(url);
   }
+  getData_ta(uid:any) : Observable<any>{
+    let url="http://localhost:3080/courses/"+String(uid);
+    return this.http.get(url);
+  }
 }

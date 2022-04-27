@@ -23,3 +23,8 @@ body{
   padding-left: 40px;
   padding-right: 40px;
 }
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+h6 {text-align: center;}

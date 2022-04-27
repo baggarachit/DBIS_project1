@@ -45,10 +45,28 @@ app.get('/courses/:role/:uid', (req,res1) => {
   console.log(string);
   client.query(string,(err, res) =>{
     if(!err){
-      console.log("yaya");
+      // console.log("yaya");
       res1.send(res.rows);
     } else{
-      console.log("noo");
+      // console.log("noo");
+      res1.send("error");
+    }
+  });
+});
+
+app.get('/courses/:uid', (req,res1) => {
+  var ud = req.params.uid;
+  
+  console.log(ud);
+  // var pwd = req.params.pwd;
+  var string = "select * from ta, courses as C where ta.s_id = "+String(ud)+" and C.id=ta.c_id";
+  console.log(string);
+  client.query(string,(err, res) =>{
+    if(!err){
+      // console.log("yaya");
+      res1.send(res.rows);
+    } else{
+      // console.log("noo");
       res1.send("error");
     }
   });

@@ -9,7 +9,10 @@
       [colspan]="tile.cols"
       [rowspan]="tile.rows"
       [style.background]="tile.color">
-      <a [routerLink]="'/course/'+tile.id"> {{tile.text | titlecase}} </a>
+      <div class="center">
+      <a [routerLink]="'/course/'+tile.id"> {{tile.text | titlecase}}</a>
+      <h6 *ngIf="tile.ista"><pre> (as TA) </pre></h6>
+    </div>
   </mat-grid-tile>
 </mat-grid-list>
 </div>
