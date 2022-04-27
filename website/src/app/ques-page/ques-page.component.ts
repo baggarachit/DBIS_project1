@@ -52,10 +52,9 @@ export class QuesPageComponent implements OnInit {
     })
   }
   empForm = new FormGroup({
-    Question: new FormControl(''),
-    Expected_Difficulty: new FormControl(''),
-    Expected_solve_time: new FormControl(''),
-    Sub_topics: new FormControl(''),
+    Difficulty_faced: new FormControl(''),
+    Time_taken: new FormControl(''),
+    solved: new FormControl(''),
   });
   onSubmit(){}
 
