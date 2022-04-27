@@ -1,0 +1,24 @@
+<body>
+    <form [formGroup]="empForm" (ngSubmit)="onSubmit()">
+        <label>
+            Venue Name:
+            <input type="text" formControlName="venue_name">
+        </label>
+        <br>
+        <label>
+            Country Name:
+            <input type="text" formControlName="country_name">
+        </label>
+        <br>
+        <label>
+          City Name:
+          <input type="text" formControlName="city_name">
+        </label>
+        <br>
+        <label>
+            Capacity:
+            <input type="text" formControlName="capacity">
+        </label>
+        <br>
+        <button type="submit">Submit</button>
+    

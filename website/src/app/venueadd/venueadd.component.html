@@ -1,0 +1,86 @@
+<body>
+    <!-- <form [formGroup]="empForm" (ngSubmit)="onSubmit()">
+        <label>
+            Venue Name:
+            <input type="text" formControlName="venue_name">
+        </label>
+        <br>
+        <label>
+            Country Name:
+            <input type="text" formControlName="country_name">
+        </label>
+        <br>
+        <label>
+          City Name:
+          <input type="text" formControlName="city_name">
+        </label>
+        <br>
+        <label>
+            Capacity:
+            <input type="text" formControlName="capacity">
+        </label>
+        <br>
+        <button type="submit">Submit</button>
+    </form> -->
+    <div class="container">
+        <form [formGroup]="empForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-25">
+            <label for="vname">Venue Name</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="vname" formControlName="venue_name">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="countryname">Country Name</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="countryname" formControlName="country_name">
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+              <label for="cname">City Name</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="cname" formControlName="city_name">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="cap">Capacity</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="cap" formControlName="capacity">
+            </div>
+          </div>
+        <!-- <div class="row">
+          <div class="col-25">
+            <label for="country">Country</label>
+          </div>
+          <div class="col-75">
+            <select id="country" name="country">
+              <option value="australia">Australia</option>
+              <option value="canada">Canada</option>
+              <option value="usa">USA</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="subject">Subject</label>
+          </div>
+          <div class="col-75">
+            <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+          </div>
+        </div> -->
+        <br>
+        <div class="row">
+          <input type="submit" value="Submit">
+        </div>
+        </form>
+      </div>
+</body>
+    

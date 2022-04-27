@@ -1,0 +1,23 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<div class="w3-top" *ngIf = "isnav">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <a routerLink="/home" routerLinkActive="active" class="w3-bar-item w3-button"><b>Home</b></a>
+    <div class="w3-right w3-hide-small">
+      <a routerLink="/matches" routerLinkActive="active" class="w3-bar-item w3-button">Account</a>
+      <a routerLink="/venue/add" routerLinkActive="active" class="w3-bar-item w3-button">Add Question</a>
+    </div>
+  </div>
+</div>
+<!-- <nav>
+  <a routerLink="/matches" routerLinkActive="active">Matches</a>
+</nav>
+<nav>
+  <a routerLink="/venues" routerLinkActive="active">Venues</a>
+</nav> -->
+<!-- <h1>Lab 4</h1> -->
+<!-- <nav>
+  <a routerLink="/home" routerLinkActive="active">Home</a>
+</nav> -->
+<router-outlet></router-outlet>

@@ -1,0 +1,28 @@
+<body>
+    <div class="container">
+        <form [formGroup]="empForm" (ngSubmit)="login()">
+          <div class="row" style="text-align:center">{{message}}</div> <br>
+        <div class="row">
+          <div class="col-25">
+            <label for="userid">User Id</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="userid" formControlName="userid">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="password">Password</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="password" formControlName="password">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <input type="submit" value="Login">
+        </div>
+        </form>
+      </div>
+</body>
+    

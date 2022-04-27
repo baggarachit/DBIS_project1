@@ -1,0 +1,75 @@
+.chart-container{
+  display:inline-block;
+  width: 200;
+  height: 200;
+  margin: 20px;
+}
+
+h1 {text-align: center;}
+h2 {text-align: center;}
+h3 {text-align: center;}
+h4 {text-align: center;}
+.collapsible {
+  background-color: rgb(185, 184, 184);
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+table, th, td {
+  border: 1px solid rgb(38, 9, 167);
+  /* border-collapse: collapse; */
+}
+table {
+  width: 95%;
+}
+th{
+  height: 70px;
+  background-color: rgb(121, 121, 241);
+}
+td{
+  height: 60px;
+  background-color: white;
+}
+tr, th, td {text-align:center;}
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+a{
+  color:blue;
+}
+#button1 , #button2 {
+  display:inline-block;
+  height: 50px;
+  width: 50px;
+  border-radius: 20%;
+  color: blue;
+  /* background-color: white; */
+  border: blue;
+  background-color: rgb(231, 226, 226);
+  margin: 15px;
+  /* additional code */
+  }
+#container{
+  text-align: center;
+}
+body{
+  padding-top:100px;
+ }

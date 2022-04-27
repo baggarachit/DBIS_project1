@@ -1,0 +1,30 @@
+<body>
+    <table class="center">
+        <!-- <tr><th></th></tr> -->
+        <tr> <th colspan="20"><pre><b>Match Summary</b></pre></th> </tr>
+        <!-- <tr> <th colspan="5"></th> </tr> -->
+        <tr><td colspan="20"><pre>{{data_info[0].match_id}}, IPL, {{data_info[0].year}}</pre></td></tr>
+        <tr> <th colspan="20"><pre>{{order_bat[0]}} Batting  {{scores[0]}}-{{wickets[0]}}</pre></th> </tr>
+        <tr *ngFor="let item of [].constructor(3); let i = index">
+        <td colspan="5">{{i1_out1[i]}}</td>
+        <td colspan="5">{{i1_out2[i]}}</td>
+        <td colspan="5">{{i1_out3[i]}}</td>
+        <td colspan="5">{{i1_out4[i]}}</td>
+        </tr>
+        <tr> <th colspan="20"><pre>{{order_bat[1]}} Batting  {{scores[1]}}-{{wickets[1]}}</pre></th> </tr>
+        <tr *ngFor="let item of [].constructor(3); let i = index">
+        <td colspan="5">{{i2_out1[i]}}</td>
+        <td colspan="5">{{i2_out2[i]}}</td>
+        <td colspan="5">{{i2_out3[i]}}</td>
+        <td colspan="5">{{i2_out4[i]}}</td>
+        </tr>
+    </table>
+    <h3> Innings 1</h3>
+    <div class="chart-container">
+        <canvas id="pie1">{{pieChart1}}</canvas>
+    </div>
+    <h3> Innings 2</h3>
+    <div class="chart-container">
+        <canvas id="pie2">{{pieChart2}}</canvas>
+    </div>
+</body>

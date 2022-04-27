@@ -1,0 +1,25 @@
+<body>
+  <table class="center">
+    <tr>
+      <th *ngFor="let col of headers">
+        {{col}}
+      </th>
+    </tr>
+
+    <tr *ngFor="let item of data">
+      <td>    <a [routerLink]="['/matches', item.match_id]">{{item.match_id}}</a></td>
+      <td>{{item.team_1}} vs {{item.team_2}}</td>
+      <td>{{item.winner}} won by {{item.win_margin}} {{item.win_type}}</td>
+      <td>{{item.venue}}</td>
+      <td>{{item.city}}</td>
+      <td>{{item.year}}</td>
+    </tr>
+  </table>
+  <br>
+  <div id="container">
+    <button id="button1" (click)="prev()">&#8249;</button>
+    <button id="button2" (click)="next()">&#8250;</button>
+  </div>
+  
+  
+</body>

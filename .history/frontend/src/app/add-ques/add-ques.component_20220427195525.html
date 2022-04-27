@@ -1,0 +1,42 @@
+<body>
+<div class="container">
+    <form [formGroup]="empForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-25">
+        <label for="qname">Question</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="qname" formControlName="Question" placeholder="enter question text here">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="Expected_Difficulty">Expected Difficulty</label>
+      </div>
+      <div class="col-75">
+        <input type="number" id="Expected_Difficulty" formControlName="Expected_Difficulty" placeholder="from 1 to 5" max="5" min="1">
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-25">
+          <label for="Expected_solve_time">Expected Solve Time</label>
+        </div>
+        <div class="col-75">
+          <input type="number" id="Expected_solve_time" formControlName="Expected_solve_time" placeholder="enter approx. minutes">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="Sub_topics">Sub-Topics</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="Sub_topics" formControlName="Sub_topics" placeholder="comma separated valid sub-topics">
+        </div>
+      </div>
+    <br>
+    <div class="row">
+      <input type="submit" value="Submit">
+    </div>
+    </form>
+  </div>
+</body>

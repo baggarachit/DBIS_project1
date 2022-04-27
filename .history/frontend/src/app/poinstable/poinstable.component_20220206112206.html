@@ -1,0 +1,22 @@
+<body>
+  <table class="center">
+    <tr>
+      <th *ngFor="let col of headers">
+        {{col}}
+      </th>
+    </tr>
+
+    <tr *ngFor="let item of data">
+      <td>{{item.team_name}}</td>
+      <td>{{item.mat}}</td>
+      <td>{{item.win}}</td>
+      <td>{{item.loss}}</td>
+      <td>{{item.tied}}</td>
+      <td>{{item.nrr}}</td>
+      <td>{{item.pts}}</td>
+      <!-- <td>{{item.tied}}</td> -->
+    </tr>
+  </table>
+  <br>
+  <br>
+</body>

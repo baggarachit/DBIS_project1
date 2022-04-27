@@ -1,0 +1,11 @@
+References:
+	https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_architect&stacked=h
+	https://www.w3schools.com/w3css/w3css_templates.asp
+	https://medium.com/bb-tutorials-and-thoughts/how-to-develop-and-build-angular-app-with-nodejs-e24c40444421
+	https://www.chartjs.org/
+	https://www.chartjs.org/docs/latest/configuration/elements.html
+	https://apexcharts.com/docs/angular-charts/
+	https://www.npmjs.com/package/body-parser
+	https://expressjs.com/
+	https://angular.io/api/common/NgForOf
+	https://angular.io/guide/http

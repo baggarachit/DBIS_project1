@@ -1,0 +1,25 @@
+<body>
+  <h2 class="center">Exams</h2>
+  <br>
+  <table class="center">
+      <!-- <tr colspan="6"><th>Exams</th></tr> -->
+    <tr>
+      <th>Exam ID</th>
+      <th>Exam Pattern</th>
+      <th>Question Count</th>
+      <th>Difficulty</th>
+      <th>Duration</th>
+      <th>Marks</th>
+    </tr>
+
+    <tr *ngFor="let item of data">
+      <td> <a [routerLink]="['/exam', item.e_id]">{{item.e_id}}</a></td>
+      <td> {{item.pattern}}</td>
+      <td> {{item.question_count}}</td>
+      <td> {{item.difficulty}}</td>
+      <td> {{item.duration}}</td>
+      <td> {{item.marks}}</td>
+    </tr>
+  </table>
+  <br>
+</body>

@@ -1,0 +1,16 @@
+<body>
+  <!-- <div class="background">
+    
+<img class="w3-image" src="home_img.webp" width="1500" height="800"> </div> -->
+<div class = "padded">
+<mat-grid-list cols="3" rowHeight="100px" class="my-grid-tile" [gutterSize]="'10px'">
+  <mat-grid-tile
+      *ngFor="let tile of tiles"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="tile.color">
+      <a [routerLink]="'/'+'venues'"> {{tile.text | titlecase}} </a>
+  </mat-grid-tile>
+</mat-grid-list>
+</div>
+</body>

@@ -1,0 +1,26 @@
+<!-- <body>
+  <table>
+    <tr>
+      <th *ngFor="let col of headers">
+        {{col}}
+      </th>
+    </tr>
+
+    <tr *ngFor="let item of data">
+      <td>{{item.match_id}}</td>
+      <td>{{item.team_1}}</td>
+      <td>{{item.team_2}}</td>
+      <td>{{item.winner}}</td>
+      <td>{{item.venue}}</td>
+      <td>{{item.city}}</td>
+      <td>{{item.year}}</td>
+    </tr>
+  </table>
+</body> -->
+
+<h1>Lab 4</h1>
+<nav>
+  <a routerLink="/home" routerLinkActive="active">Home</a>
+</nav>
+<!-- <button class="btn btn-primary" (click)="gotoMatch()">Matches</button> -->
+<router-outlet></router-outlet>

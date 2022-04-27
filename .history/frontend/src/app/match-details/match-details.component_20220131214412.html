@@ -1,0 +1,68 @@
+<body>
+    <h1>Innings No. 1</h1>
+    <h3>Batting</h3>
+    <table class="center">
+      <tr>
+        <th *ngFor="let col of headers_bat">
+          {{col}}
+        </th>
+      </tr>
+  
+      <tr *ngFor="let item of data_bat1">
+        <td>{{item.player_name}}</td>
+        <td>{{item.balls_faced}}</td>
+        <td>{{item.runs}}</td>
+        <td>{{item.fours}}</td>
+        <td>{{item.sixes}}</td>
+      </tr>
+    </table>
+    <h3> Bowling</h3>
+    <table class="center">
+        <tr>
+          <th *ngFor="let col of headers_ball">
+            {{col}}
+          </th>
+        </tr>
+    
+        <tr *ngFor="let item of data_ball1">
+          <td>{{item.player_name}}</td>
+          <td>{{item.balls_bowled}}</td>
+          <td>{{item.runs_given}}</td>
+          <td>{{item.wickets}}</td>
+        </tr>
+      </table>
+
+
+      <h1>Innings No. 2</h1>
+      <h3>Batting</h3>
+      <table class="center">
+        <tr>
+          <th *ngFor="let col of headers_bat">
+            {{col}}
+          </th>
+        </tr>
+    
+        <tr *ngFor="let item of data_bat2">
+          <td>{{item.player_name}}</td>
+          <td>{{item.balls_faced}}</td>
+          <td>{{item.runs}}</td>
+          <td>{{item.fours}}</td>
+          <td>{{item.sixes}}</td>
+        </tr>
+      </table class="center">
+      <h3> Bowling</h3>
+      <table>
+          <tr>
+            <th *ngFor="let col of headers_ball">
+              {{col}}
+            </th>
+          </tr>
+      
+          <tr *ngFor="let item of data_ball2">
+            <td>{{item.player_name}}</td>
+            <td>{{item.balls_bowled}}</td>
+            <td>{{item.runs_given}}</td>
+            <td>{{item.wickets}}</td>
+          </tr>
+        </table>
+  </body>

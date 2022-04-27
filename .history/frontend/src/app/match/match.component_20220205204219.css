@@ -1,0 +1,25 @@
+table, th, td {
+    border: 1px solid rgb(38, 9, 167);
+    /* border-collapse: collapse; */
+  }
+  table {
+    width: 90%;
+  }
+  th{
+    height: 70px;
+    background-color: #96D4D4;
+  }
+  td{
+    height: 60px;
+    background-color: white;
+  }
+  .center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* a:visited{
+    color:blue;
+  } */
+  body{
+    padding-top:100px;
+   }

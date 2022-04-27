@@ -1,0 +1,19 @@
+<body>
+    <h1>Innings 1</h1>
+    <h3>Batting</h3>
+    <table>
+      <tr>
+        <th *ngFor="let col of headers_bat">
+          {{col}}
+        </th>
+      </tr>
+  
+      <tr *ngFor="let item of data_bat1">
+        <td>{{item.player_name}}</td>
+        <td>{{item.balls_faced}}</td>
+        <td>{{item.runs}}</td>
+        <td>{{item.fours}}</td>
+        <td>{{item.sixes}}</td>
+      </tr>
+    </table>
+  </body>

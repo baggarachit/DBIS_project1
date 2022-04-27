@@ -1,0 +1,15 @@
+<h3>Venues</h3>
+<body>
+  <table class="center">
+    <tr>
+      <th>Venue ID</th>
+      <th>Venue Name</th>
+    </tr>
+
+    <tr *ngFor="let item of data_venues">
+      <td> <a [routerLink]="['/venue', item.venue_id]">{{item.venue_id}}</a></td>
+      <td> {{item.venue_name}}</td>
+    </tr>
+  </table>
+  <br>
+</body>

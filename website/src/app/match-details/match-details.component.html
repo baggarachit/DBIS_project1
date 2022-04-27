@@ -1,0 +1,114 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+    <h1><b>Scorecard</b></h1>
+    <br>
+    <h2>Innings No. 1</h2>
+    <br>
+    <h3>Batting</h3>
+    <table class="center">
+      <tr>
+        <th *ngFor="let col of headers_bat">
+          {{col}}
+        </th>
+      </tr>
+  
+      <tr *ngFor="let item of data_bat1">
+        <td><a [routerLink]="['/players', item.player_id]">{{item.player_name}}</a></td>
+        <td>{{item.balls_faced}}</td>
+        <td>{{item.runs}}</td>
+        <td>{{item.fours}}</td>
+        <td>{{item.sixes}}</td>
+      </tr>
+    </table>
+    <br>
+    <h3> Bowling</h3>
+    <table class="center">
+        <tr>
+          <th *ngFor="let col of headers_ball">
+            {{col}}
+          </th>
+        </tr>
+    
+        <tr *ngFor="let item of data_ball1">
+          <td><a [routerLink]="['/players', item.player_id]">{{item.player_name}}</a></td>
+          <td>{{item.balls_bowled}}</td>
+          <td>{{item.runs_given}}</td>
+          <td>{{item.wickets}}</td>
+        </tr>
+      </table>
+      <h4>Total: {{data_overall[0].total}}-{{data_overall[0].wickets}}, Extras: {{data_overall[0].extra_runs}}</h4>
+      <br>
+      <br>
+      <!-- <h4>Total: {{data_overall[0].total}}-{{data_overall[0].wickets}}</h4> -->
+
+      <h2>Innings No. 2</h2>
+      <h3>Batting</h3>
+      <table class="center">
+        <tr>
+          <th *ngFor="let col of headers_bat">
+            {{col}}
+          </th>
+        </tr>
+    
+        <tr *ngFor="let item of data_bat2">
+          <td><a [routerLink]="['/players', item.player_id]">{{item.player_name}}</a></td>
+          <td>{{item.balls_faced}}</td>
+          <td>{{item.runs}}</td>
+          <td>{{item.fours}}</td>
+          <td>{{item.sixes}}</td>
+        </tr>
+      </table>
+      <br>
+      <h3> Bowling</h3>
+      <table class="center">
+          <tr>
+            <th *ngFor="let col of headers_ball">
+              {{col}}
+            </th>
+          </tr>
+      
+          <tr *ngFor="let item of data_ball2">
+            <td><a [routerLink]="['/players', item.player_id]">{{item.player_name}}</a></td>
+            <td>{{item.balls_bowled}}</td>
+            <td>{{item.runs_given}}</td>
+            <td>{{item.wickets}}</td>
+          </tr>
+        </table>
+        <h4>Total: {{data_overall[1].total}}-{{data_overall[1].wickets}}, Extras: {{data_overall[1].extra_runs}}</h4>
+        <br>
+        <br>
+        
+        <h1><b>Match Information</b></h1>
+        <table class="center">
+            <tr>
+              <th><pre> Match: </pre></th><td><pre> {{data_info[0].match_id}}, {{data_info[0].team1}} vs {{data_info[0].team2}}, {{data_info[0].year}} </pre></td>
+            </tr>
+            <tr>
+              <th><pre> Toss: </pre></th><td><pre> {{data_info[0].toss_winner}} won the toss and opted to {{data_info[0].opt}} </pre></td>
+            </tr>
+            <tr>
+              <th><pre> Umpires: </pre></th><td><pre> {{umpires_str}}</pre></td>
+            </tr>
+            <tr>
+              <th><pre> {{team1}} Playing XI: </pre></th><td><pre> {{p11_1_str}}</pre></td>
+            </tr>
+            <tr>
+              <th><pre> {{team2}} Playing XI: </pre></th><td><pre> {{p11_2_str}}</pre></td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        
+        <button class="collapsible" (click)="view_summ()">View Summary</button>
+        <button class="collapsible" (click)="view_comp()">View Comparison</button>
+        <br>
+        <br>
+        <div class="center">
+            <canvas id="Chart">{{myChart}}</canvas>
+        </div>
+        
+        <!-- <button type="button" class="collapsible">Open Collapsible</button>
+        <div class="content">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div> -->
+  </body>
