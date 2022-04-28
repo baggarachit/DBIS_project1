@@ -1,0 +1,74 @@
+<body>
+  <!-- <div class="background">
+    
+<img class="w3-image" src="home_img.webp" width="1500" height="800"> </div> -->
+<div class = "padded">
+<mat-grid-list cols="3" rowHeight="100px" class="my-grid-tile" [gutterSize]="'20px'">
+  <mat-grid-tile
+      *ngFor="let tile of tiles"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="tile.color">
+      <div class="center">
+      <a [routerLink]="'/course/'+tile.id"> {{tile.text | titlecase}}</a>
+      <h6 *ngIf="tile.ista"><pre> (as TA) </pre></h6>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+</div>
+<h5>Basic Buttons</h5>
+<div>
+<button mat-button>Basic</button>
+<button mat-button color="primary">Primary</button>
+<button mat-button color="accent">Accent</button>
+<button mat-button color="warn">Warn</button>
+<button mat-button disabled>Disabled</button>
+</div>
+
+<h5>Raised Buttons</h5>
+<div>
+<button mat-raised-button>Basic</button>
+<button mat-raised-button color="primary">Primary</button>
+<button mat-raised-button color="accent">Accent</button>
+<button mat-raised-button color="warn">Warn</button>
+<button mat-raised-button disabled>Disabled</button>
+</div>
+
+<h5>Stroked Buttons</h5>
+<div>
+<button mat-stroked-button>Basic</button>
+<button mat-stroked-button color="primary">Primary</button>
+<button mat-stroked-button color="accent">Accent</button>
+<button mat-stroked-button color="warn">Warn</button>
+<button mat-stroked-button disabled>Disabled</button>
+</div>
+
+<h5>Flat Buttons</h5>
+<div>
+<button mat-flat-button>Basic</button>
+<button mat-flat-button color="primary">Primary</button>
+<button mat-flat-button color="accent">Accent</button>
+<button mat-flat-button color="warn">Warn</button>
+<button mat-flat-button disabled>Disabled</button>
+</div>
+
+<h5>Fab Buttons</h5>
+<div>
+<button mat-fab>Basic</button>
+<button mat-fab color="primary">Primary</button>
+<button mat-fab color="accent">Accent</button>
+<button mat-fab color="warn">Warn</button>
+<button mat-fab disabled>Disabled</button>
+</div>
+
+<h5>Mini Fab Buttons</h5>
+<div>
+<button mat-mini-fab>Basic</button>
+<button mat-mini-fab color="primary">Primary</button>
+<button mat-mini-fab color="accent">Accent</button>
+<button mat-mini-fab color="warn">Warn</button>
+</div>
+
+</body>
+
+

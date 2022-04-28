@@ -1,0 +1,24 @@
+<body>
+    <!-- <h2 class="center">Exams</h2> -->
+    <!-- <br> -->
+    <table class="center">
+        <!-- <tr colspan="6"><th>Exams</th></tr> -->
+       <tr><td colspan="5"><pre><h4>EXAM, Duration: {{dur}}, Max. Marks: {{marks}}, Difficulty: {{diff}}</h4></pre></td> </tr>
+      <tr>
+        <th>Question ID</th>
+        <th>Question</th>
+        <th> Avg. Difficulty </th>
+        <th> Avg. Time </th>
+        <th>Marks</th>
+      </tr>
+  
+      <tr *ngFor="let item of data">
+        <td> <a [routerLink]="['/ques', item.q_id]">{{item.q_id}}</a></td>
+        <td> Some text xyz </td>
+        <td> {{item.difficulty}}</td>
+        <td> {{item.time}}</td>
+        <!-- <td> {{item.time/dur * marks}}</td> -->
+      </tr>
+    </table>
+    <br>
+  </body>

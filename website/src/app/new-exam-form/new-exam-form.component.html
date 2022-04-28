@@ -1,0 +1,43 @@
+<body>
+    <h2>Please fill the details for generating new question paper</h2>
+<div class="container">
+    <form [formGroup]="empForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-25">
+        <label for="Difficulty">Difficulty</label>
+      </div>
+      <div class="col-75">
+        <input type="number" id="Difficulty" formControlName="Difficulty" placeholder="enter the difficulty of exam from 1 to 5" min="1" max="5">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="Duration">Duration</label>
+      </div>
+      <div class="col-75">
+        <input type="number" id="Duration" formControlName="Duration" placeholder="enter duration of the exam" min="0">
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-25">
+          <label for="Marks">Marks</label>
+        </div>
+        <div class="col-75">
+          <input type="number" id="Marks" formControlName="Marks" placeholder="enter max. marks" min="1">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="Topics">Topics</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="Topics" formControlName="Topics" placeholder="comma separated valid Topics">
+        </div>
+      </div>
+    <br>
+    <div class="row">
+      <input type="submit" value="Submit">
+    </div>
+    </form>
+  </div>
+</body>

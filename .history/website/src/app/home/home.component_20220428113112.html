@@ -1,0 +1,25 @@
+<body>
+  <!-- <div class="background">
+    
+<img class="w3-image" src="home_img.webp" width="1500" height="800"> </div> -->
+<div class = "padded">
+<mat-grid-list cols="3" rowHeight="100px" class="my-grid-tile" [gutterSize]="'20px'">
+  <mat-grid-tile
+      *ngFor="let tile of tiles"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="tile.color">
+      <div class="center">
+      <a [routerLink]="'/course/'+tile.id"> {{tile.text | titlecase}}</a>
+      <h6 *ngIf="tile.ista"><pre> (as TA) </pre></h6>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+</div>
+<button class="mat-fab md-fab-bottom-right" aria-label="Add a category">
+  <mat-icon>add</mat-icon>
+</button>
+<button mat-fab color="accent" aria-label="Example icon button with a bookmark icon">
+  <mat-icon>bookmark</mat-icon>
+</button>
+</body>

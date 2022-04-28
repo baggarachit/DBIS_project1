@@ -1,0 +1,66 @@
+body{
+  padding-top:100px;
+ }
+
+ .background {
+  box-sizing: border-box;
+  width: 100%;
+  height: 800px;
+  padding: 3px;
+  background-image: url(../home_img.webp);
+  /* border: 1px solid black; */
+  background-size: 100% 100%;
+  }
+  mat-grid-tile {
+    background: lightblue;
+  }
+  .my-grid-tile {
+    padding-top: 24px !important;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+.padded {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+h6 {text-align: center;}
+.md-fab-bottom-right{
+  position: fixed !important;
+  right: 15px; /* Add this and change value to set the margin you want */
+}
+
+section {
+  display: table;
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 490px;
+}
+
+.example-button-row .mat-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}

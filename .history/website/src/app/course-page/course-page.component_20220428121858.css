@@ -1,0 +1,75 @@
+/* h1 {text-align: center;}
+
+table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+  }
+  th, td {
+    background-color: #96D4D4;
+  }
+  .center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+.chart-container{
+  width: 200;
+  height: 200;
+}
+a:visited{
+  color:blue;
+} */
+
+table, th, td {
+    border: 1px solid rgb(38, 9, 167);
+    /* border-collapse: collapse; */
+  }
+  table {
+    width: 95%;
+  }
+  th{
+    height: 70px;
+    background-color: rgb(121, 121, 241);
+  }
+  td{
+    height: 60px;
+    background-color: white;
+  }
+  tr, th, td {text-align:center;}
+  .center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  a{
+    color:blue;
+  }
+  #button1 , #button2 {
+    display:inline-block;
+    height: 50px;
+    width: 50px;
+    border-radius: 20%;
+    color: blue;
+    /* background-color: white; */
+    border: blue;
+    background-color: rgb(231, 226, 226);
+    margin: 15px;
+    /* additional code */
+    }
+  #container{
+    text-align: center;
+  }
+  body{
+    padding-top:100px;
+   }
+   h2,h3 {text-align: center;}
+   .md-fab-bottom-right{
+    position: fixed !important;
+    right: 15px; /* Add this and change value to set the margin you want */
+    bottom: 15px;
+    background-color: blue;
+   color: blue;
+
+  }
+  .mat-success {
+    background-color: green;
+    color: #fff;
+}
