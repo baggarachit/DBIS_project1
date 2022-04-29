@@ -49,8 +49,8 @@ for i in range(num_participants) :
 		cpi = 6 + 4*random.gauss(0,0.5)
 		if(cpi>=10) :
 			cpi=10
-		if(cpi<=0) :
-			cpi = 0
+		if(cpi<=5) :
+			cpi = 5
 		student_table.append([participants_table[i][0],participants_table[i][1],program,dept,year,cpi])
 		# student_id+=1
 	else :
