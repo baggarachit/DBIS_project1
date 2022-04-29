@@ -140,6 +140,7 @@ app.get('/ques/:q_id', (req,res1) => {
       client.query(string,(err, res2) =>{
         if(!err){
           dic["data2"]=res2.rows;
+          console.log(dic);
           res1.send(dic);
         } else{
           dic["data2"]="error";
@@ -804,7 +805,7 @@ app.get('/getpaper/:difficulty/:duration/:marks/:topics/:c_id',function(req,res1
               client.query(string,(err,res10)=>{
                 if(!err){
                   var cnt = parseInt(res10.rows[0].count);
-                  string = `insert into exams (id,pattern,question_count,difficulty,duration,marks) values (${cnt+1},'Objective',${lis.length},${req_diff},${global.sum},${marks})`;
+                  string = `insert into exams (id,pattern,question_count,difficulty,duration,marks) values (${cnt+1},'Objective',${lis.length},${req_diff},${duration},${marks})`;
                   client.query(string,(err,res11)=>{
                     if(!err){
                       string = `insert into exam_course (e_id,c_id) values (${cnt+1},${cid})`;
