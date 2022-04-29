@@ -11,7 +11,12 @@
       [rowspan]="tile.rows"
       [style.background]="tile.color">
       <div class="center">
-      <a [routerLink]="'/course/'+tile.id"> {{tile.text | titlecase}}</a>
+      <h2>{{tile.text | titlecase}}</h2>
+      <br>
+      <a [routerLink]="'/course/'+tile.id"> View Exams</a>
+      <br>
+      <a [routerLink]="'/course/'+tile.id+'/analytics/'"> Show course analytics </a>
+      
       <h6 *ngIf="tile.ista"><pre> (as TA) </pre></h6>
     </div>
   </mat-grid-tile>

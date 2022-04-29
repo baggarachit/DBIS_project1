@@ -794,6 +794,25 @@ app.get('/getpaper/:difficulty/:duration/:marks/:topics/:c_id',function(req,res1
 }
 );
 
+app.get('/course/:c_id/analytics', (req,res1) => {
+  var cid = req.params.c_id;
+  var string = `select 
+  sum((cpi>=5 and cpi<6)::int) as five,
+  sum((cpi>=6 and cpi<7)::int) as six,
+  sum((cpi>7 and cpi<8)::int) as seven,
+  sum((cpi>8 and cpi<9)::int) as eight,
+  sum((cpi>9 and cpi<=10)::int) as nine
+  from student,student_course where c_id = ${cid} and student.id=student_course.s_id`;
+
+  client.query(string,(err, res) =>{
+    if(!err){
+      res1.status(200).json({"hist":res.rows});
+    } else{
+      res1.send("error");
+    }
+  });
+});
+
 
 app.listen(port, () => {
     console.log(`Server listening on the port::${port}`);

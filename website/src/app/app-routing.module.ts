@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddQuesComponent } from './add-ques/add-ques.component';
+import { CourseAnalyticsComponent } from './course-analytics/course-analytics.component';
 import { CoursePageComponent } from './course-page/course-page.component';
 import { DisplayPaperComponent } from './display-paper/display-paper.component';
 import { ExamPageComponent } from './exam-page/exam-page.component';
@@ -18,6 +19,7 @@ import { QuesPageComponent } from './ques-page/ques-page.component';
 import { VenueDetailsComponent } from './venue-details/venue-details.component';
 import { VenueComponent } from './venue/venue.component';
 import { VenueaddComponent } from './venueadd/venueadd.component';
+
 
 const routes : Routes = [
   { path: 'login', component: LoginComponent }, 
@@ -37,6 +39,7 @@ const routes : Routes = [
   { path: 'pointstable', component: PtlandComponent, canActivate : [AuthGuard] },
   { path: 'players/:player_id', component: PlayerComponent, canActivate : [AuthGuard]},
   { path: 'pointstable/:year', component: PoinstableComponent, canActivate : [AuthGuard]},
+  { path: 'course/:c_id/analytics', component: CourseAnalyticsComponent , canActivate : [AuthGuard]},
   { path: '**',   redirectTo: '/home', pathMatch: 'full' },];
 
 @NgModule({

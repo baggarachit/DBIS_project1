@@ -25,9 +25,10 @@
     "@material/grid-list": "^4.0.0",
     "@types/chart.js": "^2.9.35",
     "angular2-chartjs": "^0.5.1",
+    "apexcharts": "^3.35.0",
     "chart.js": "^3.7.0",
     "md-button": "^1.0.12",
-    "ng-apexcharts": "^1.7.0",
+    "ng-apexcharts": "^1.7.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

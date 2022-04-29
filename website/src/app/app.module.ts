@@ -34,6 +34,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NewExamFormComponent } from './new-exam-form/new-exam-form.component';
 import { DisplayPaperComponent } from './display-paper/display-paper.component';
+import { CourseAnalyticsComponent } from './course-analytics/course-analytics.component';
 // import { DisplayPaperComponent } from './display-paper/display-paper.component';
 
 @NgModule({
@@ -69,6 +70,7 @@ import { DisplayPaperComponent } from './display-paper/display-paper.component';
     AddQuesComponent,
     NewExamFormComponent,
     DisplayPaperComponent,
+    CourseAnalyticsComponent,
     // DisplayPaperComponent
   ],
   providers: [AuthGuard, ApiService, DetailsService, SummaryService, GetvenuesService, GetvenuedetailsService],
