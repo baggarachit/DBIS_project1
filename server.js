@@ -1,11 +1,23 @@
+global.queslist = [];
+global.sum = 60;
+function recurse(t,i,currsum,ll){
+  if(currsum==global.sum){
+    queslist.push(ll);
+  }
+  if(currsum<global.sum && i<t.length){
+    recurse(t,i+1,currsum+t[i],ll.concat(t[i]));
+    recurse(t,i+1,currsum,ll);
+  }
+}
+
 const {Client} = require('pg')
 
 const client = new Client({
   host: "localhost",
   user : "sahil32",
   port : 5432,
-  password : "rajabose69",
-  database : "proj"
+  password : "pseudotourist",
+  database : "postgres"
 })
 
 client.connect();
@@ -19,6 +31,10 @@ const app = express(),
 
 app.use(cors());
 
+global.isTa = false;
+var taid = -1;
+global.partid = -1;
+
 app.get('/participant/:uid/:pwd', (req,res1) => {
   var ud = req.params.uid;
   var pd = req.params.pwd;
@@ -27,6 +43,9 @@ app.get('/participant/:uid/:pwd', (req,res1) => {
   var string = "select * from participant where name = '"+ud+"' and password = '"+pd+"'";
   client.query(string,(err, res) =>{
     if(!err){
+      // global.partid = parseInt(ud);
+      console.log(ud);
+      console.log("jnjnjjnfnfjn");
       res1.send(res.rows);
     } else{
       res1.send("error");
@@ -38,6 +57,7 @@ app.get('/courses/:role/:uid', (req,res1) => {
   // console.log("wlwowowowoowowowowowoowowowowow");
   var role = req.params.role;
   var ud = req.params.uid;
+  global.partid = parseInt(ud);
   
   console.log(ud);
   // var pwd = req.params.pwd;
@@ -56,6 +76,7 @@ app.get('/courses/:role/:uid', (req,res1) => {
 
 app.get('/courses/:uid', (req,res1) => {
   var ud = req.params.uid;
+  global.partid = parseInt(ud);
   
   console.log(ud);
   // var pwd = req.params.pwd;
@@ -65,6 +86,15 @@ app.get('/courses/:uid', (req,res1) => {
     if(!err){
       // console.log("yaya");
       res1.send(res.rows);
+      if (res.rows.length == 0){
+        global.isTa = false;
+        console.log("djjfnjnfjnjnfjnjn");
+        taid = parseInt(ud);
+      }
+      else{
+        global.isTa = true;
+        taid=-1;
+      }
     } else{
       // console.log("noo");
       res1.send("error");
@@ -575,6 +605,116 @@ app.post('/venue/add',function(req,res1){
       res1.send({result:"error"});
     }
   })
+});
+
+app.post('/question/add',function(req,res1){
+  // console.log(req.body);
+  var body = req.body;
+  var exp_diff=parseInt(body.Expected_Difficulty);
+  var exp_solve_time = parseInt(body.Expected_solve_time);
+  var stt = body.Sub_topics;
+  lis = stt.split(",");
+  var n = lis.length;
+  var string = `select Distinct(t_id) from topic,subtopic_topic where topic.id = subtopic_topic.t_id and (`;
+  console.log(global.isTa);
+  if(global.isTa){
+    console.log("HUY");
+    for(var i=0;i<n;i++){
+      lis[i]=parseInt(lis[i].trim());
+      if(i<n-1) string+=`st_id = ${lis[i]} or `;
+      else string+=`st_id = ${lis[i]}`;
+    }
+    string += `);`;
+    console.log(string);
+    client.query(string,(err,resta)=>{
+      if(!err){
+        console.log(resta.rows);
+        string = `select Distinct(t_id) from topic_course,TA where TA.s_id = ${taid} and topic_course.c_id = TA.c_id`;
+        topiclist = [];
+        for(var i=0;i<resta.rows.length;i++){
+          topiclist.push(resta.rows[i].t_id);
+        }
+        client.query(string,(err,rescour)=>{
+          if(!err){
+            for(var i=0;i<rescour.rows.length;i++){
+              if(rescour.rows[i].t_id in topiclist){
+                continue;
+              } else{
+                res1.send({result:"error invalid subtopic"});
+              }
+            }
+          }
+        });
+      } else{
+        console.log(err);
+      }
+    });
+  }
+  string = `select count(*) from question`;
+  var num_ques=0;
+  client.query(string,(err, res) =>{
+    if(!err){
+      num_ques = parseInt(res.rows[0].count)+1;
+      // console.log(res.rows[0].count);
+      string = `insert into question (id,question_text,difficulty,time_taken,num_feedbacks) values (${num_ques},'${body.Question}',${exp_diff},${exp_solve_time},1)`;
+      console.log(string);
+      client.query(string,(err,res2)=>{
+        if(!err){
+          // console.log("fjdskl");
+          string=``;
+          for(var i=0;i<n;i++){
+            // lis[i]=parseInt(lis[i].trim());
+            string+=`insert into ques_subtopic (q_id,st_id) values (${num_ques},${lis[i]});`;
+          }
+          console.log(string);
+          client.query(string,(err,res3)=>{
+            if(!err){
+              console.log("hurray");
+              // console.log(res3);
+              var role = "professor";
+              var pid = global.partid;
+              if(global.isTa){
+                role = "ta";
+              }
+              string = `insert into added_by (q_id,p_id,role) values (${num_ques},${pid},'${role}')`;
+              console.log(string);
+              client.query(string,(err,res4)=>{
+                if(!err){
+                  console.log("hurray");
+                  res1.send({result:"success"});
+                } else{
+                  console.log(err);
+                  res1.send({result:"error"});
+                }
+              });
+            } else{
+              console.log("jj");
+              console.log(err);
+              res1.send({result:"error"});
+            }
+          });
+        } else{
+          res1.send({result:"error"});
+        }
+      });
+    } else{
+      res1.send("error");
+    }
+  });
+
+  // var string=`insert into venue (question_text,difficulty,time_taken,num_feedbacks) values ('${body.Question}','${body.Expected_Difficulty}','${body.Expected_solve_time}',1)`;
+  // // console.log(string);
+  // // string="insert into venue (venue_name,city_name,country_name,capacity) values ('yo1','to3','yo2',10000)";
+  // client.query(string,(err,res)=>{
+  //   if(!err){
+  //     // console.log(res.rows);
+  //     res1.send({result:"success"});
+  //   } else{
+  //     // console.log(err);
+  //     res1.send({result:"error"});
+  //   }
+  // })
+  // console.log(req.body);
 });
 
 

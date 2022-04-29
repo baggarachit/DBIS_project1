@@ -1,4 +1,4 @@
-<body>
+<body *ngIf="!isstudent">
     <h2>Please fill the details of the new question</h2>
 <div class="container">
     <form [formGroup]="empForm" (ngSubmit)="onSubmit()">
@@ -40,4 +40,7 @@
     </div>
     </form>
   </div>
+</body>
+<body *ngIf="isstudent">
+    <h2>Not Allowed</h2>
 </body>
