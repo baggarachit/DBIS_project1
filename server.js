@@ -819,7 +819,16 @@ app.get('/course/:c_id/analytics', (req,res1) => {
             client.query(string,(err, res) =>{
               if(!err){
                 dic["total-students"]=res.rows;
-                res1.status(200).send(dic);
+                if(!err){
+                string=`select topic_course.t_id,count(*) as ques_cnt from topic_course,subtopic_topic,ques_subtopic
+                where topic_course.c_id = ${cid} and topic_course.t_id=subtopic_topic.t_id and subtopic_topic.st_id=ques_subtopic.st_id 
+                group by topic_course.t_id;`;
+                client.query(string,(err, res) =>{
+                  dic["ques-per-topic"]=res.rows;
+                  res1.status(200).send(dic);                
+                });
+                }
+
               } else{
                 res1.send("error");
               }
