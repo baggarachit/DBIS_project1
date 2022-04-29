@@ -120,7 +120,7 @@ for i in range(len(courses_table)) :
 ques_exam_table = []
 
 for i in range(num_exams) :
-	ques = exams_table[i][3]
+	ques = exams_table[i][2]
 	sample = random.sample(range(1,num_questions+1),ques)
 	for j in range(ques) :
 		ind = sample[j]

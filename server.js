@@ -14,7 +14,7 @@ const {Client} = require('pg')
 
 const client = new Client({
   host: "localhost",
-  user : "sahil32",
+  user : "postgres",
   port : 5432,
   password : "pseudotourist",
   database : "postgres"
@@ -883,6 +883,40 @@ app.get('/course/:c_id/analytics', (req,res1) => {
       });
     } else{
       res1.send("error");
+    }
+  });
+});
+
+app.post('/feedback/add/:qid/:sid',function(req,res1){
+  var body = req.body;
+  var qid = req.params.qid;
+  var sid = req.params.sid;
+  var diff = body["Difficulty_faced"];
+  var time = body["Time_taken"];
+  // console.log(body["solved"]);
+  // console.log(sid);
+  // var diff = bod
+  var flag = 0;
+  if(body["solved"]=""){
+    flag = 0;
+  } else{
+    flag = 1;
+  }
+  var string = `select count(*) from feedback`;
+  client.query(string,(err,res)=>{
+    if(!err){
+      var cnt = parseInt(res.rows[0].count);
+      string = `insert into feedback (feedback_id,s_id,q_id,time_taken,difficulty,solved) values (${cnt+1},${sid},${qid},${diff},${time},${flag})`;
+      // console.log(string);
+      client.query(string,(err,res)=>{
+        if(!err){
+          res1.status(200).send("success");
+        } else{
+          res1.status(200).send("error");
+        }
+      });
+    } else{
+      res1.status(200).send("error");
     }
   });
 });
