@@ -16,8 +16,8 @@ const client = new Client({
   host: "localhost",
   user : "postgres",
   port : 5432,
-  password : "pseudotourist",
-  database : "postgres"
+  password : "rajabose69",
+  database : "proj"
 })
 
 client.connect();
@@ -40,7 +40,7 @@ app.get('/participant/:uid/:pwd', (req,res1) => {
   var pd = req.params.pwd;
   console.log(ud);
   // var pwd = req.params.pwd;
-  var string = "select * from participant where name = '"+ud+"' and password = '"+pd+"'";
+  var string = "select * from participant where id = "+ud+" and password = '"+pd+"'";
   client.query(string,(err, res) =>{
     if(!err){
       // global.partid = parseInt(ud);

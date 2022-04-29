@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   msg:any;
   message: string = ""; 
   empForm = new FormGroup({
-    userid: new FormControl(''),
+    ID: new FormControl(''),
     password: new FormControl(''),
   });
   returnUrl: string = '';
@@ -38,11 +38,11 @@ export class LoginComponent implements OnInit {
     // console.log("wowow");
     const rExp : RegExp = /^[a-zA-Z]+$/;
     const rExp1 : RegExp = /^[a-zA-Z0-9]+$/g;
-    if (!rExp.test(String(this.f['userid'].value)) || !rExp1.test(String(this.f['password'].value))){
+    if (!rExp1.test(String(this.f['password'].value))){
       this.message = "Username or Password contains unexpected characters";
       return;
     }
-    this.authService.check(this.f['userid'].value, this.f['password'].value).subscribe(data=>{
+    this.authService.check(this.f['ID'].value, this.f['password'].value).subscribe(data=>{
       console.log(data);
       if(data.length!=0){
         localStorage.setItem('isLoggedIn', "true");  
@@ -56,12 +56,6 @@ export class LoginComponent implements OnInit {
     })
     
   }
-  // onSubmit(){
-  //   this.api.postreq(this.empForm.value).subscribe(res=>{
-  //     console.log(res);
-  //   });
-  //   this.empForm.reset();
-  // }
 
 }
 

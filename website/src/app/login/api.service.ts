@@ -14,8 +14,8 @@ export class AuthService {
    localStorage.setItem('isLoggedIn','false');    
    localStorage.removeItem('token');    
    }    
-   check(uid: string, pwd: string) : Observable<any>{
-    let url="http://localhost:3080/participant/"+uid+"/"+pwd;
+   check(uid: number, pwd: string) : Observable<any>{
+    let url="http://localhost:3080/participant/"+String(uid)+"/"+pwd;
     return this.http.get(url);
   }
 }   

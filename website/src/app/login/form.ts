@@ -1,4 +1,4 @@
 export interface Form {
-    userid: string;
+    ID: number;
     password: string;
   }
