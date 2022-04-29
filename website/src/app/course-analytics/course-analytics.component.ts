@@ -2,34 +2,27 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { ApiService } from './api.service';
 import { ActivatedRoute } from '@angular/router';
 import {
-  ApexChart,
   ApexAxisChartSeries,
+  ApexChart,
   ChartComponent,
   ApexDataLabels,
   ApexPlotOptions,
   ApexYAxis,
-  ApexLegend,
-  ApexGrid,
-  // ChartComponent,
-  // ApexAxisChartSeries,
-  // ApexChart,
-  ApexFill,
-  // ApexYAxis,
-  ApexTooltip,
   ApexTitleSubtitle,
-  // ApexXAxis
+  ApexXAxis,
+  ApexFill
 } from "ng-apexcharts";
 
-type ApexXAxis = {
-  type?: "category" | "datetime" | "numeric";
-  categories?: any;
-  labels?: {
-    style?: {
-      colors?: string | string[];
-      fontSize?: string;
-    };
-  };
-};
+// type ApexXAxis = {
+//   type?: "category" | "datetime" | "numeric";
+//   categories?: any;
+//   labels?: {
+//     style?: {
+//       colors?: string | string[];
+//       fontSize?: string;
+//     };
+//   };
+// };
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -38,9 +31,8 @@ export type ChartOptions = {
   plotOptions: ApexPlotOptions;
   yaxis: ApexYAxis;
   xaxis: ApexXAxis;
-  grid: ApexGrid;
-  colors: string[];
-  legend: ApexLegend;
+  fill: ApexFill;
+  title: ApexTitleSubtitle;
 };
 
 // export type ChartOptions1 = {
@@ -67,7 +59,7 @@ export class CourseAnalyticsComponent implements OnInit {
   public chartOptions: Partial<ChartOptions> | any;
   // public chartOptions1: Partial<ChartOptions1> | any;
 
-  runs: Array<any> = [];
+  cpi_list: Array<any> = [];
   matchid: Array<any> = [];
   colors: Array<any> = [];
   runs1: Array<any> = [];
@@ -80,7 +72,7 @@ export class CourseAnalyticsComponent implements OnInit {
         {
           name: 'Runs',
           // data: ["1","22","33","22","3","4","5"]
-          data: this.cpi
+          data: []
         }
       ],
       chart: {
@@ -113,7 +105,7 @@ export class CourseAnalyticsComponent implements OnInit {
           text: "CPI"
         },
         // categories: ["1","2","3","4","5","6","7"],
-        categories: this.cpi,
+        categories: ["5-6","6-7","7-8","8-9","9-10"],
         labels: {
           style: {
             fontSize: "12px"
@@ -189,7 +181,7 @@ export class CourseAnalyticsComponent implements OnInit {
     //   ]
     // };
   }
-  data: any; 
+  data : string[] = [];
   cpi=["5-6","6-7","7-8","8-9","9-10"];
 
   ngOnInit(){
@@ -197,8 +189,13 @@ export class CourseAnalyticsComponent implements OnInit {
       var c_id:any;
       c_id=params.get('c_id');
       this.api.getData_0(c_id).subscribe(data=>{
-        console.log(data);
-        this.data =data["hist"];
+        var tmp = data["hist"][0];
+        this.cpi_list.push(tmp["five"]);
+        this.cpi_list.push(tmp["six"]);
+        this.cpi_list.push(tmp["seven"]);
+        this.cpi_list.push(tmp["eight"]);
+        this.cpi_list.push(tmp["nine"]);
+        console.log(this.data);
         // for(let i=0;i<this.data3.length;i++){
         //   // console.log(this.data3[i]["match_id"]);
         //   this.matchid.push(this.data3[i]["match_id"]);
@@ -221,22 +218,9 @@ export class CourseAnalyticsComponent implements OnInit {
         this.chartOptions.series = [
           {
             name: 'CPI Distribution',
-            data: this.data
+            data: this.cpi_list
           }
         ];
-        this.chartOptions.colors=this.colors;
-        this.chartOptions.xaxis={
-          title:{
-            text: "CPI"
-          },
-            categories: this.cpi,
-            // categories: this.matchid,
-            labels: {
-              style: {
-                fontSize: "12px"
-              }
-            }
-          }
         
         // this.chartOptions1.series = [
         //   {
