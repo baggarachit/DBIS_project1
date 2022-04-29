@@ -33,6 +33,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NewExamFormComponent } from './new-exam-form/new-exam-form.component';
+import { DisplayPaperComponent } from './display-paper/display-paper.component';
 // import { DisplayPaperComponent } from './display-paper/display-paper.component';
 
 @NgModule({
@@ -67,6 +68,7 @@ import { NewExamFormComponent } from './new-exam-form/new-exam-form.component';
     QuesPageComponent,
     AddQuesComponent,
     NewExamFormComponent,
+    DisplayPaperComponent,
     // DisplayPaperComponent
   ],
   providers: [AuthGuard, ApiService, DetailsService, SummaryService, GetvenuesService, GetvenuedetailsService],

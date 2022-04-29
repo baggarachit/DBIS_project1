@@ -30,6 +30,7 @@ export class NewExamFormComponent implements OnInit {
     //   console.log(res);
 
     // });
+    this.router.navigateByUrl('/display-paper', { state: this.empForm.value });
     this.empForm.reset();
   }
 
