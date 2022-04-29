@@ -16,8 +16,8 @@ const client = new Client({
   host: "localhost",
   user : "postgres",
   port : 5432,
-  password : "pseudotourist",
-  database : "postgres"
+  password : "rajabose69",
+  database : "proj"
 })
 
 client.connect();
@@ -39,8 +39,12 @@ app.get('/participant/:uid/:pwd', (req,res1) => {
   var ud = req.params.uid;
   var pd = req.params.pwd;
   console.log(ud);
+  console.log("here");
+
   // var pwd = req.params.pwd;
-  var string = "select * from participant where id = "+ud+" and password = '"+pd+"'";
+  var string = "select * from participant where id = "+ud+" and password = '"+pd+"';";
+  console.log("here");
+  console.log(string);
   client.query(string,(err, res) =>{
     if(!err){
       // global.partid = parseInt(ud);
@@ -60,9 +64,11 @@ app.get('/courses/:role/:uid', (req,res1) => {
   global.partid = parseInt(ud);
   
   console.log(ud);
+  
   // var pwd = req.params.pwd;
-  var string = "select * from "+String(role)+"_course as SC, courses as C where SC.c_id=C.id and SC."+String(role)[0]+"_id = "+ud;
+  var string = "select * from "+String(role)+"_course as SC, courses as C where SC.c_id=C.id and SC."+String(role)[0]+"_id = "+ud+";";
   console.log(string);
+  console.log("here");
   client.query(string,(err, res) =>{
     if(!err){
       // console.log("yaya");
@@ -128,29 +134,7 @@ app.get('/exam/:e_id', (req,res1) => {
   });
 });
 
-app.get('/ques/:q_id', (req,res1) => {
-  var qd = req.params.q_id;
-  var dic={};
-  // console.log(ud);
-  var string = "select * from question as Q, ques_subtopic QS, subtopic_topic as ST where Q.id=QS.q_id and QS.st_id = ST.st_id and Q.id = "+qd;
-  client.query(string,(err, res) =>{
-    if(!err){
-      dic["data1"]=res.rows;
-      string = `select count(*) from ques_exam as QE where QE.q_id=${qd}`;
-      client.query(string,(err, res2) =>{
-        if(!err){
-          dic["data2"]=res2.rows;
-          res1.send(dic);
-        } else{
-          dic["data2"]="error";
-        }
-    })
-   } else{
-     dic["data1"]="error";
-      res1.send("error");
-    }
-  });
-});
+
 
 app.get('/isfeed/:u_id/:q_id', (req,res1) => {
   var ud = req.params.u_id;
