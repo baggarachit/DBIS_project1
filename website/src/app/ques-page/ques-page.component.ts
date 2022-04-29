@@ -19,6 +19,7 @@ export class QuesPageComponent implements OnInit {
   feedback_given: boolean = false;
   role!: string|null;
   isprof!: boolean|null;
+  appeared: any;
 
   ngOnInit(): void {
     this.role=localStorage.getItem('role');
@@ -30,6 +31,8 @@ export class QuesPageComponent implements OnInit {
     const quesIdFromRoute = Number(routeParams.get('q_id'));
     this.api.getData_0(quesIdFromRoute).subscribe(data=>{
       console.log(data);
+      this.appeared= data["data2"][0]["count"];
+      data=data["data1"];
       this.data = data;
       for(var i=0; i<data.length;i++){
         var osz=this.st_st.size;

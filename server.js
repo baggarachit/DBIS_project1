@@ -130,12 +130,23 @@ app.get('/exam/:e_id', (req,res1) => {
 
 app.get('/ques/:q_id', (req,res1) => {
   var qd = req.params.q_id;
+  var dic={};
   // console.log(ud);
   var string = "select * from question as Q, ques_subtopic QS, subtopic_topic as ST where Q.id=QS.q_id and QS.st_id = ST.st_id and Q.id = "+qd;
   client.query(string,(err, res) =>{
     if(!err){
-      res1.send(res.rows);
-    } else{
+      dic["data1"]=res.rows;
+      string = `select count(*) from ques_exam as QE where QE.q_id=${qd}`;
+      client.query(string,(err, res2) =>{
+        if(!err){
+          dic["data2"]=res2.rows;
+          res1.send(dic);
+        } else{
+          dic["data2"]="error";
+        }
+    })
+   } else{
+     dic["data1"]="error";
       res1.send("error");
     }
   });
