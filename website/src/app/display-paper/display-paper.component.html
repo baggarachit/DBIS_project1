@@ -1,6 +1,6 @@
 <!-- <p>display-paper works!</p><br>
 <p>display-paper works!</p><br> -->
-<body>
+<body *ngIf="flag">
     <!-- <h2 class="center">EXAM</h2> -->
     <br>
     <table class="center">
@@ -13,10 +13,16 @@
   
       <tr *ngFor="let item of [].constructor(data['ques_lis'].length); let i = index">
         <td> {{data['ques_lis'][i]}}</td>
-        <td>Some text like what is xyz</td>
+        <td>{{data['qtexts'][i]}}</td>
         <td> {{data['allot_marks'][i]}}</td>
       </tr>
     </table>
     <br>
+  </body>
+  <body *ngIf="!flag">
+      <h2 class="center">Not Able to generate question paper with provided difficulty and time taken</h2>
+      <br>
+      <h2>Consider changing the parameters</h2>
+
   </body>
   

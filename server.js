@@ -14,10 +14,10 @@ const {Client} = require('pg')
 
 const client = new Client({
   host: "localhost",
-  user : "sahil32",
+  user : "postgres",
   port : 5432,
-  password : "rajabose69",
-  database : "proj"
+  password : "pseudotourist",
+  database : "postgres"
 })
 
 client.connect();
@@ -130,12 +130,23 @@ app.get('/exam/:e_id', (req,res1) => {
 
 app.get('/ques/:q_id', (req,res1) => {
   var qd = req.params.q_id;
+  var dic={};
   // console.log(ud);
   var string = "select * from question as Q, ques_subtopic QS, subtopic_topic as ST where Q.id=QS.q_id and QS.st_id = ST.st_id and Q.id = "+qd;
   client.query(string,(err, res) =>{
     if(!err){
-      res1.send(res.rows);
-    } else{
+      dic["data1"]=res.rows;
+      string = `select count(*) from ques_exam as QE where QE.q_id=${qd}`;
+      client.query(string,(err, res2) =>{
+        if(!err){
+          dic["data2"]=res2.rows;
+          res1.send(dic);
+        } else{
+          dic["data2"]="error";
+        }
+    })
+   } else{
+     dic["data1"]="error";
       res1.send("error");
     }
   });
@@ -735,30 +746,36 @@ app.get('/getpaper/:difficulty/:duration/:marks/:topics/:c_id',function(req,res1
   topics_str = "("+topics_str+"-10)"
   // var lis = topics.split(",");
   var topics_str = "("+topics+")"
-  var string = `select DISTINCT Q.id, Q.difficulty, Q.time_taken from Question as Q, ques_subtopic as QS, subtopic_topic as ST, topic_course as TC where QS.q_id=Q.id and ST.st_id=QS.st_id and ST.t_id in ${topics_str} and TC.c_id=${cid} and ST.t_id=TC.t_id limit 10`;
+  var string = `select DISTINCT Q.id, Q.difficulty, Q.time_taken, Q.question_text from Question as Q, ques_subtopic as QS, subtopic_topic as ST, topic_course as TC where QS.q_id=Q.id and ST.st_id=QS.st_id and ST.t_id in ${topics_str} and TC.c_id=${cid} and ST.t_id=TC.t_id limit 20`;
+  console.log(string);
   console.log(topics);
   client.query(string,(err, res) =>{
     if(!err){
-      // console.log(res.rows);
+      console.log(res.rows);
       var time=[];
       var diff=[];
       var qids=[];
+      var qtexts=[];
       for(var a=0;a<res.rows.length;a++){
         time.push(res.rows[a].time_taken);
         diff.push(res.rows[a].difficulty);
         qids.push(res.rows[a].id);
+        qtexts.push(res.rows[a].question_text);
       }
       console.log(time);
       console.log(diff);
       console.log(qids);
-      for(var i=-0.1;i<=0.1;i+=0.1){
-        for(var j=-1;j<=1;j+=1){
+      var lis = [];
+      var flag = 0;
+      for(var i=-0.2;i<=0.2;i+=0.1){
+        for(var j=-3;j<=3;j+=1){
           global.sum = duration+j;
           var req_diff = difficulty+i;
           global.queslist = [];
           recurse(time,0,0,[]);
+          // console.log(global.queslist);
           for(var ii = 0;ii<global.queslist.length;ii++){
-            var lis = global.queslist[ii];
+            lis = global.queslist[ii];
             var sumdiff = 0.0;
             // console.log(lis);
             for(var jj = 0 ; jj < lis.length;jj++){
@@ -766,25 +783,61 @@ app.get('/getpaper/:difficulty/:duration/:marks/:topics/:c_id',function(req,res1
               sumdiff += diff[ind];
             }
             // console.log(sumdiff);
-            if(sumdiff==lis.length*req_diff){
+            if(sumdiff==lis.length*req_diff && lis.length!=0){
+              flag=1;
               var allot_marks = [];
+              var questext = [];
+              var sum = 0;
               for(var iii = 0 ;iii<lis.length-1;iii++){
-                allot_marks.push(time[lis[iii]]*marks/(duration));
-    
+                var temp_marks = parseInt(time[lis[iii]]*marks/(global.sum));
+                allot_marks.push(temp_marks);
+                sum += temp_marks;
+                questext.push(qtexts[lis[iii]]);
               }
+              questext.push(qtexts[lis[lis.length-1]]);
+              allot_marks.push(marks-sum);
               console.log(lis);
               for(var i=0;i<lis.length;i++) lis[i]=qids[lis[i]];
               console.log(allot_marks);
-              res1.status(200).json({"ques_lis":lis,"allot_marks":allot_marks});
+              console.log("ufffffffff");
+              string = `select count(*) from exams`;
+              client.query(string,(err,res10)=>{
+                if(!err){
+                  var cnt = parseInt(res10.rows[0].count);
+                  string = `insert into exams (id,pattern,question_count,difficulty,duration,marks) values (${cnt+1},'Objective',${lis.length},${req_diff},${global.sum},${marks})`;
+                  client.query(string,(err,res11)=>{
+                    if(!err){
+                      string = `insert into exam_course (e_id,c_id) values (${cnt+1},${cid})`;
+                      client.query(string,(err,res12)=>{
+                        if(!err){
+                          console.log("yayayyy");
+                        } else{
+                          console.log("sadgeeee");
+                        }
+                      });
+                    } else{
+                      console.log("sadge");
+                    }
+                  });
+                } else{
+                  console.log(err);
+                }
+              });
+              res1.status(200).json({"ques_lis":lis,"allot_marks":allot_marks,"qtexts":questext});
               break;
             }
           }
+          
         }
       }
+      // console.log("for loop done");
       // res1.send(res.rows);
     } else{
       console.log(err);
-      res1.send("error");
+      // res1.status(200).json({"ques_lis":[]});
+    }
+    if(flag==false){
+      res1.status(200).json({"ques_lis":[]});
     }
   });
   // var n = lis.length;
@@ -841,6 +894,40 @@ app.get('/course/:c_id/analytics', (req,res1) => {
       });
     } else{
       res1.send("error");
+    }
+  });
+});
+
+app.post('/feedback/add/:qid/:sid',function(req,res1){
+  var body = req.body;
+  var qid = req.params.qid;
+  var sid = req.params.sid;
+  var diff = body["Difficulty_faced"];
+  var time = body["Time_taken"];
+  // console.log(body["solved"]);
+  // console.log(sid);
+  // var diff = bod
+  var flag = 0;
+  if(body["solved"]=""){
+    flag = 0;
+  } else{
+    flag = 1;
+  }
+  var string = `select count(*) from feedback`;
+  client.query(string,(err,res)=>{
+    if(!err){
+      var cnt = parseInt(res.rows[0].count);
+      string = `insert into feedback (feedback_id,s_id,q_id,time_taken,difficulty,solved) values (${cnt+1},${sid},${qid},${diff},${time},${flag})`;
+      // console.log(string);
+      client.query(string,(err,res)=>{
+        if(!err){
+          res1.status(200).send("success");
+        } else{
+          res1.status(200).send("error");
+        }
+      });
+    } else{
+      res1.status(200).send("error");
     }
   });
 });

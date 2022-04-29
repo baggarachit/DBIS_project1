@@ -6,7 +6,6 @@
      <tr><td colspan="6"><pre><h4>EXAMS</h4></pre></td> </tr>
     <tr>
       <th>Exam ID</th>
-      <th>Exam Pattern</th>
       <th>Question Count</th>
       <th>Difficulty</th>
       <th>Duration</th>
@@ -15,7 +14,6 @@
 
     <tr *ngFor="let item of data">
       <td> <a [routerLink]="['/exam', item.e_id]">{{item.e_id}}</a></td>
-      <td> {{item.pattern}}</td>
       <td> {{item.question_count}}</td>
       <td> {{item.difficulty}}</td>
       <td> {{item.duration}}</td>
@@ -24,6 +22,6 @@
   </table>
   <br>
 </body>
-<div class="md-fab-bottom-right">
+<div *ngIf = "!flag" class="md-fab-bottom-right">
   <button mat-raised-button color= "success" (click)="new_exam()"> <mat-icon>add</mat-icon> Create a new exam</button>
   </div>

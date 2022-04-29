@@ -25,6 +25,10 @@ export class AddQuesComponent implements OnInit {
   onSubmit(){
     this.api.postreq(this.empForm.value).subscribe(res=>{
       console.log(res["result"]);
+      // maybe insert window alert if invalid subtopic;
+      if(res["result"]=="error invalid subtopic"){
+        alert("invalid subtopic");
+      }
     });
     this.empForm.reset();
   }

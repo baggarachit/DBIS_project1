@@ -103,7 +103,7 @@ for i in range(num_exams) :
 		pattern = 'Subjective'
 	question_count = random.randint(5,10)
 	difficulty = random.randint(1,5)
-	duration = random.randint(2,4)*15
+	duration = difficulty*15+int(random.gauss(0,5))
 	marks = random.randint(2,3)*50
 	exams_table.append([i+1,pattern,question_count,difficulty,duration,marks])
 
@@ -120,7 +120,7 @@ for i in range(len(courses_table)) :
 ques_exam_table = []
 
 for i in range(num_exams) :
-	ques = exams_table[i][3]
+	ques = exams_table[i][2]
 	sample = random.sample(range(1,num_questions+1),ques)
 	for j in range(ques) :
 		ind = sample[j]
