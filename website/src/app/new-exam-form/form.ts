@@ -3,4 +3,5 @@ export interface Form {
     Duration: number;
     Marks: number;
     Topics: string;
+    cid: number;
   }

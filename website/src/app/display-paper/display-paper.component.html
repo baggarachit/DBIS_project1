@@ -1,2 +1,22 @@
-<p>display-paper works!</p><br>
-<p>display-paper works!</p><br>
+<!-- <p>display-paper works!</p><br>
+<p>display-paper works!</p><br> -->
+<body>
+    <!-- <h2 class="center">EXAM</h2> -->
+    <br>
+    <table class="center">
+        <tr><td colspan="3"><pre><h3>EXAM</h3></pre></td></tr>
+      <tr>
+        <th>Question ID</th>
+        <th>Text</th>
+        <th>Marks</th>
+      </tr>
+  
+      <tr *ngFor="let item of [].constructor(data['ques_lis'].length); let i = index">
+        <td> {{data['ques_lis'][i]}}</td>
+        <td>Some text like what is xyz</td>
+        <td> {{data['allot_marks'][i]}}</td>
+      </tr>
+    </table>
+    <br>
+  </body>
+  

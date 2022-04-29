@@ -39,7 +39,7 @@ export class QuesPageComponent implements OnInit {
         this.t_st.add(data[i].t_id);
         if(osz!=this.t_st.size) this.tp = this.tp +"Topic "+String(data[i].t_id)+", ";
       }
-      console.log("wowowow");
+      // console.log("wowowow");
       console.log(this.subtp);
       this.subtp = this.subtp.slice(0,-2);
       this.tp = this.tp.slice(0,-2);

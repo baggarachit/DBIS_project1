@@ -45,7 +45,7 @@ app.get('/participant/:uid/:pwd', (req,res1) => {
     if(!err){
       // global.partid = parseInt(ud);
       console.log(ud);
-      console.log("jnjnjjnfnfjn");
+      // console.log("jnjnjjnfnfjn");
       res1.send(res.rows);
     } else{
       res1.send("error");
@@ -717,46 +717,80 @@ app.post('/question/add',function(req,res1){
   // console.log(req.body);
 });
 
-app.get('/getpaper/:difficulty/:duration/:marks/:topics',function(req,res1){
+app.get('/getpaper/:difficulty/:duration/:marks/:topics/:c_id',function(req,res1){
   console.log("hh");
   console.log(req.params);
   var difficulty = parseFloat(req.params.difficulty);
   var duration = parseInt(req.params.duration);
   var marks = parseInt(req.params.marks);
-  var topics = req.params.topics;
-  var lis = topics.split(",");
-  // var n = lis.length;
-  var time = [10,10,10,20,20,20,30,30,30];
-  var diff = [1,2,3,3,4,2,2,3,4];
-  for(var i=-0.1;i<=0.1;i+=0.1){
-    for(var j=-1;j<=1;j+=1){
-      global.sum = duration+j;
-      var req_diff = difficulty+i;
-      global.queslist = [];
-      recurse(time,0,0,[]);
-      for(var ii = 0;ii<global.queslist.length;ii++){
-        var lis = global.queslist[ii];
-        var sumdiff = 0.0;
-        // console.log(lis);
-        for(var jj = 0 ; jj < lis.length;jj++){
-          var ind = lis[jj];
-          sumdiff += diff[ind];
-        }
-        // console.log(sumdiff);
-        if(sumdiff==lis.length*req_diff){
-          var allot_marks = [];
-          for(var iii = 0 ;iii<lis.length;iii++){
-            allot_marks.push(time[lis[iii]]*marks/(duration));
-
+  var cid = parseInt(req.params.c_id);
+  var tops = req.params.topics;
+  var topics = tops.split(",");
+  var topics_str = "";
+  for(var i=0;i<topics.length;i++) {
+    topics[i]=Number(topics[i].trim());
+    if(isNaN(topics[i])) res1.send("Wrong sub-topics");
+    topics_str = topics_str + String(topics[i])+",";
+  }
+  topics_str = "("+topics_str+"-10)"
+  // var lis = topics.split(",");
+  var topics_str = "("+topics+")"
+  var string = `select DISTINCT Q.id, Q.difficulty, Q.time_taken from Question as Q, ques_subtopic as QS, subtopic_topic as ST, topic_course as TC where QS.q_id=Q.id and ST.st_id=QS.st_id and ST.t_id in ${topics_str} and TC.c_id=${cid} and ST.t_id=TC.t_id limit 10`;
+  console.log(topics);
+  client.query(string,(err, res) =>{
+    if(!err){
+      // console.log(res.rows);
+      var time=[];
+      var diff=[];
+      var qids=[];
+      for(var a=0;a<res.rows.length;a++){
+        time.push(res.rows[a].time_taken);
+        diff.push(res.rows[a].difficulty);
+        qids.push(res.rows[a].id);
+      }
+      console.log(time);
+      console.log(diff);
+      console.log(qids);
+      for(var i=-0.1;i<=0.1;i+=0.1){
+        for(var j=-1;j<=1;j+=1){
+          global.sum = duration+j;
+          var req_diff = difficulty+i;
+          global.queslist = [];
+          recurse(time,0,0,[]);
+          for(var ii = 0;ii<global.queslist.length;ii++){
+            var lis = global.queslist[ii];
+            var sumdiff = 0.0;
+            // console.log(lis);
+            for(var jj = 0 ; jj < lis.length;jj++){
+              var ind = lis[jj];
+              sumdiff += diff[ind];
+            }
+            // console.log(sumdiff);
+            if(sumdiff==lis.length*req_diff){
+              var allot_marks = [];
+              for(var iii = 0 ;iii<lis.length-1;iii++){
+                allot_marks.push(time[lis[iii]]*marks/(duration));
+    
+              }
+              console.log(lis);
+              for(var i=0;i<lis.length;i++) lis[i]=qids[lis[i]];
+              console.log(allot_marks);
+              res1.status(200).json({"ques_lis":lis,"allot_marks":allot_marks});
+              break;
+            }
           }
-          console.log(lis);
-          console.log(allot_marks);
-          res1.status(200).json({"ques_lis":lis,"allot_marks":allot_marks});
-          break;
         }
       }
+      // res1.send(res.rows);
+    } else{
+      console.log(err);
+      res1.send("error");
     }
-  }
+  });
+  // var n = lis.length;
+  // var time = [10,10,10,20,20,20,30,30,30];
+  // var diff = [1,2,3,3,4,2,2,3,4];
+
 }
 );
 

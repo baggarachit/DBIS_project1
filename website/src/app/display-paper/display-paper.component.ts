@@ -17,7 +17,7 @@ export class DisplayPaperComponent implements OnInit {
     // console.log(this.params.id);
     this.api.getpaper(this.params).subscribe(data=>{
       console.log("dsfadf");
-      console.log(data);
+      console.log(data['ques_lis']);
       this.data = data;
    })
   }

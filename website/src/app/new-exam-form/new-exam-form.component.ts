@@ -22,6 +22,7 @@ export class NewExamFormComponent implements OnInit {
     Duration: new FormControl(''),
     Marks: new FormControl(''),
     Topics: new FormControl(''),
+    cid: new FormControl(''),
   });
   onSubmit(){
     // ,{ queryParams: { course: this.c_id, difficulty: this.empForm.value.Difficulty, duration: this.empForm.value.Duration, marks: this.empForm.value.Marks, topics: this.empForm.value.Topics}}
@@ -30,6 +31,7 @@ export class NewExamFormComponent implements OnInit {
     //   console.log(res);
 
     // });
+    this.empForm.value.cid = this.c_id;
     this.router.navigateByUrl('/display-paper', { state: this.empForm.value });
     this.empForm.reset();
   }

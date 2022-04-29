@@ -1,0 +1,24 @@
+<p>display-paper works!</p><br>
+<p>display-paper works!</p><br>
+<body>
+    <h2 class="center">EXAM</h2>
+    <br>
+    <table class="center">
+        <!-- <tr colspan="6"><th>Exams</th></tr> -->
+      <tr>
+        <th>Question ID</th>
+        <th>Text</th>
+        <th>Marks</th>
+      </tr>
+  
+      <tr *ngFor="let item of [].constructor(data['ques_list'].length); let i = index">
+        <td> <a [routerLink]="['/ques', data['ques_list'][i]]">{{data['ques_list'][i]}}</a></td>
+        <td>Some text like what is xyz</td>
+        <td> {{data['allot_marks'][i]}}</td>
+        <!-- <td> {{item.time_taken}}</td>
+        <td> {{item.num_feedbacks}}</td> -->
+      </tr>
+    </table>
+    <br>
+  </body>
+  

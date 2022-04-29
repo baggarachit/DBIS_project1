@@ -17,7 +17,13 @@ h1, h2 {text-align: center;}
     border-radius: 4px;
     resize: vertical;
   }
-  
+  input[type=password], select, textarea {
+    width: 100%;
+    padding: 18px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
   label {
     padding: 12px 12px 12px 0;
     display: inline-block;
