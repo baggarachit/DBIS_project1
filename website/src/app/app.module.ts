@@ -1,3 +1,7 @@
+
+
+import {MatNativeDateModule} from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
@@ -36,6 +40,10 @@ import { NewExamFormComponent } from './new-exam-form/new-exam-form.component';
 import { DisplayPaperComponent } from './display-paper/display-paper.component';
 import { CourseAnalyticsComponent } from './course-analytics/course-analytics.component';
 // import { DisplayPaperComponent } from './display-paper/display-paper.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatOptionModule } from '@angular/material/core';
+
 
 @NgModule({
   imports: [
@@ -50,6 +58,11 @@ import { CourseAnalyticsComponent } from './course-analytics/course-analytics.co
     MatIconModule,
     MatDividerModule,
     BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatOptionModule,
+    MatNativeDateModule,
+    MatSelectModule,
   ],
   declarations: [
     AppComponent,

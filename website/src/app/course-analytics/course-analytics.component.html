@@ -2,45 +2,15 @@
     <h1><b>Basic Information</b></h1>
     <br>
     <br>
-    <!-- <table class="center">
-      <tr>
-        <th *ngFor="let col of headers">
-          {{col}}
-        </th> -->
-        <!-- <th>
-          {{player_id}}
-        </th> -->
-      <!-- </tr> -->
-<!--   
-      <tr *ngFor="let item of data">
-        <td>{{item.player_name}}</td>
-        <td>{{item.country}}</td>
-        <td>{{item.batting_style}}</td>
-        <td>{{item.bowling_skill}}</td>
-      </tr>
-    </table>
-    <br>
-    <br> -->
-    <!-- <table class = "center" *ngIf="data2[0].matches>0">
-      <tr>
-        <th *ngFor="let col of headers2">
-          {{col}}
-        </th>
-      </tr>
-  
-      <tr *ngFor="let item of data2">
-        <td>{{item.matches}}</td>
-        <td>{{item.runs}}</td>
-        <td>{{item.four}}</td>
-        <td>{{item.six}}</td>
-        <td>{{item.fifty}}</td>
-        <td>{{item.hs}}</td>
-        <td>{{item.strike_rate}}</td>
-        <td>{{item.average}}</td>
-      </tr>
-    </table> -->
-  
-    <div id="chart">
+    <mat-form-field>
+      <mat-label>Select Analytic</mat-label>
+      <mat-select (selectionChange)="onSelectEvent($event.value)">
+        <mat-option *ngFor="let drop of drop_options" [value]="drop.value">
+          {{drop.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div id="chart" *ngIf="analytic_option=='1'">
       <apx-chart
         [series]="chartOptions.series"
         [chart]="chartOptions.chart"
@@ -51,17 +21,9 @@
         [legend]="chartOptions.legend"
         [colors]="chartOptions.colors"
         [grid]="chartOptions.grid"
-      ></apx-chart>
-      <div class="center">
-        <ul class="legend">
-          <li><span class="superawesome"></span> Runs<30</li>
-          <li><span class="awesome"></span> Runs>=30 and <50</li>
-          <li><span class="kindaawesome"></span> Runs>=50</li>
-      </ul>
-      </div>
-      
+      ></apx-chart>      
     </div>
-    <div id="chart">
+    <div id="chart" *ngIf="analytic_option=='2'">
       <apx-chart
         [series]="chartOptions2.series"
         [chart]="chartOptions2.chart"
@@ -69,7 +31,7 @@
         [responsive]="chartOptions2.responsive"
       ></apx-chart>
     </div>
-    <div id="chart">
+    <div id="chart" *ngIf="analytic_option=='3'">
       <apx-chart
         [series]="chartOptions3.series"
         [chart]="chartOptions3.chart"
@@ -77,7 +39,7 @@
         [responsive]="chartOptions3.responsive"
       ></apx-chart>
     </div>
-    <div id="chart">
+    <div id="chart" *ngIf="analytic_option=='4'">
       <apx-chart
         [series]="chartOptions4.series"
         [chart]="chartOptions4.chart"
