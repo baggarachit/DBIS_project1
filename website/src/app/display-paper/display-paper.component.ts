@@ -12,6 +12,7 @@ export class DisplayPaperComponent implements OnInit {
   constructor(private api: ApiService,private router: Router) {}
   params = this.router.getCurrentNavigation()?.extras.state;
   data : any;
+  flag = true;
   ngOnInit(): void {
     console.log(this.params);
     // console.log(this.params.id);
@@ -19,6 +20,9 @@ export class DisplayPaperComponent implements OnInit {
       console.log("dsfadf");
       console.log(data['ques_lis']);
       this.data = data;
+      if(this.data.ques_lis.length == 0){
+        this.flag = false;
+      } else this.flag = true;
    })
   }
 
