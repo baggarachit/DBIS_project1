@@ -13,7 +13,11 @@
   
       <tr *ngFor="let item of data">
         <td> <a [routerLink]="['/ques', item.q_id]">{{item.q_id}}</a></td>
+<<<<<<< HEAD
+        <td> {{item.question_text}}</td>
+=======
         <td>{{item.question_text}}</td>
+>>>>>>> 493e311d1cdb57b52a4e056816b33cd986494ee7
         <td> {{item.difficulty}}</td>
         <td> {{item.time_taken}}</td>
         <td> {{item.num_feedbacks}}</td>
