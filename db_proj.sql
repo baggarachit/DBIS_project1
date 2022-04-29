@@ -54,7 +54,7 @@ CREATE TABLE Courses (
 CREATE TABLE Question (
     id INT ,
     question_text TEXT,
-    difficulty numeric(3,1) CHECK(difficulty>=0 and difficulty<=5),
+    difficulty INT CHECK(difficulty>=0 and difficulty<=5),
     time_taken INT DEFAULT 0,
     num_feedbacks INT,
     Primary key(id)
@@ -189,5 +189,5 @@ $ques_update$ LANGUAGE plpgsql;
 CREATE TRIGGER ques_update BEFORE INSERT OR UPDATE ON feedback
 FOR EACH ROW EXECUTE PROCEDURE ques_update_func();
 
-CREATE VIEW student_feedback as select * from feedback,student;
-CREATE VIEW question_addedby as select * from added_by,question where role='TA';
+CREATE VIEW student_feedback as select * from feedback,student where s_id = id;
+CREATE VIEW question_addedby as select * from added_by,question where role='TA' and q_id = id;
