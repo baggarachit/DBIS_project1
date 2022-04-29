@@ -43,6 +43,14 @@ export type ChartOptions2 = {
   responsive: ApexResponsive[];
   labels: any;
 };
+export type ChartOptionsnew = {
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  labels: string[];
+  plotOptions: ApexPlotOptions;
+  fill: ApexFill;
+  stroke: ApexStroke;
+};
 
 
 @Component({
@@ -56,6 +64,7 @@ export class CourseAnalyticsComponent implements OnInit {
   public chartOptions2: Partial<ChartOptions2> | any;
   public chartOptions3: Partial<ChartOptions2> | any;
   public chartOptions4: Partial<ChartOptions2> | any; 
+  public chartOptionsnew: Partial<ChartOptionsnew> | any;
   
   onSelectEvent(value: any){
     this.analytic_option = value;
@@ -77,7 +86,83 @@ export class CourseAnalyticsComponent implements OnInit {
   topic_cnt: Array<any> = [];
 
   constructor(private api:ApiService,private route: ActivatedRoute){
-    
+    this.chartOptionsnew = {
+      series: [75],
+      chart: {
+        height: 350,
+        type: "radialBar",
+        toolbar: {
+          show: true
+        }
+      },
+      plotOptions: {
+        radialBar: {
+          startAngle: -135,
+          endAngle: 225,
+          hollow: {
+            margin: 0,
+            size: "70%",
+            background: "#fff",
+            image: undefined,
+            position: "front",
+            dropShadow: {
+              enabled: true,
+              top: 3,
+              left: 0,
+              blur: 4,
+              opacity: 0.24
+            }
+          },
+          track: {
+            background: "#fff",
+            strokeWidth: "67%",
+            margin: 0, // margin is in pixels
+            dropShadow: {
+              enabled: true,
+              top: -3,
+              left: 0,
+              blur: 4,
+              opacity: 0.35
+            }
+          },
+
+          dataLabels: {
+            show: true,
+            name: {
+              offsetY: -10,
+              show: true,
+              color: "#888",
+              fontSize: "17px"
+            },
+            value: {
+              formatter: function(val:any) {
+                return parseInt(val.toString(), 10).toString();
+              },
+              color: "#111",
+              fontSize: "36px",
+              show: true
+            }
+          }
+        }
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shade: "dark",
+          type: "horizontal",
+          shadeIntensity: 0.5,
+          gradientToColors: ["#ABE5A1"],
+          inverseColors: true,
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [0, 100]
+        }
+      },
+      stroke: {
+        lineCap: "round"
+      },
+      labels: ["Percent"]
+    };
     this.chartOptions = {
       series: [
         {

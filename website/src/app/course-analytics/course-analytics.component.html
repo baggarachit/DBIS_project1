@@ -1,7 +1,7 @@
 <body>
-    <h1><b>Basic Information</b></h1>
     <br>
     <br>
+    <div class="msec">
     <mat-form-field>
       <mat-label>Select Analytic</mat-label>
       <mat-select (selectionChange)="onSelectEvent($event.value)">
@@ -10,6 +10,8 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+  </div>
+    <div class="chrt-container">
     <div id="chart" *ngIf="analytic_option=='1'">
       <apx-chart
         [series]="chartOptions.series"
@@ -47,9 +49,21 @@
         [responsive]="chartOptions4.responsive"
       ></apx-chart>
     </div>
+  </div>
     
     <br>
     <br>
     <br>
-  
+    <div id="card">
+      <div id="chart">
+        <apx-chart
+          [series]="chartOptionsnew.series"
+          [chart]="chartOptionsnew.chart"
+          [plotOptions]="chartOptionsnew.plotOptions"
+          [labels]="chartOptionsnew.labels"
+          [stroke]="chartOptionsnew.stroke"
+          [fill]="chartOptionsnew.fill"
+        ></apx-chart>
+      </div>
+    </div>
   </body>

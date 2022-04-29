@@ -77,3 +77,15 @@ table, th, td {
   background-color: rgb(38, 38, 166);
   color: #fff;
 }
+
+.chrt-container {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.msec {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
