@@ -41,7 +41,7 @@
     </table> -->
   
     <div id="chart">
-      <!-- <apx-chart
+      <apx-chart
         [series]="chartOptions.series"
         [chart]="chartOptions.chart"
         [dataLabels]="chartOptions.dataLabels"
@@ -51,7 +51,7 @@
         [legend]="chartOptions.legend"
         [colors]="chartOptions.colors"
         [grid]="chartOptions.grid"
-      ></apx-chart> -->
+      ></apx-chart>
       <div class="center">
         <ul class="legend">
           <li><span class="superawesome"></span> Runs<30</li>
@@ -61,43 +61,33 @@
       </div>
       
     </div>
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions2.series"
+        [chart]="chartOptions2.chart"
+        [labels]="chartOptions2.labels"
+        [responsive]="chartOptions2.responsive"
+      ></apx-chart>
+    </div>
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions3.series"
+        [chart]="chartOptions3.chart"
+        [labels]="chartOptions3.labels"
+        [responsive]="chartOptions3.responsive"
+      ></apx-chart>
+    </div>
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions4.series"
+        [chart]="chartOptions4.chart"
+        [labels]="chartOptions4.labels"
+        [responsive]="chartOptions4.responsive"
+      ></apx-chart>
+    </div>
+    
     <br>
     <br>
     <br>
-  
-    <!-- <table class="center" *ngIf="data4[0].matches>0">
-      <tr>
-        <th *ngFor="let col of headers3">
-          {{col}}
-        </th>
-      </tr>
-  
-      <tr *ngFor="let item of data4">
-        <td>{{item.matches}}</td>
-        <td>{{item.runs}}</td>
-        <td>{{item.wickets}}</td>
-        <td>{{item.overs}}</td>
-        <td>{{item.balls}}</td>
-        <td>{{item.economy}}</td>
-        <td>{{item.five_wickets}}</td> -->
-        <!-- <td>{{item.average}}</td> -->
-      <!-- </tr>
-    </table> -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
-  <div class="card">
-    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-fluid d-block mx-auto rounded-circle img-thumbnail mb-4">
-    <h1>{{data[0].player_name}}</h1>
-    <p>{{data[0].country}}</p>
-    <p>{{data[0].batting_style}}</p>
-    <p>{{data[0].bowling_skill}}</p>
-    <a href="#"><i class="fa fa-dribbble"></i></a>
-    <a href="#"><i class="fa fa-twitter"></i></a>
-    <a href="#"><i class="fa fa-linkedin"></i></a>
-    <a href="#"><i class="fa fa-facebook"></i></a>
-    <p><button>Contact</button></p> -->
-  <!-- </div> --> -->
-  
-  
   
   </body>

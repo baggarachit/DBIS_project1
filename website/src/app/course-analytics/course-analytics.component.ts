@@ -2,59 +2,53 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { ApiService } from './api.service';
 import { ActivatedRoute } from '@angular/router';
 import {
-  ApexChart,
   ApexAxisChartSeries,
+  ApexChart,
   ChartComponent,
   ApexDataLabels,
   ApexPlotOptions,
   ApexYAxis,
-  ApexLegend,
-  ApexGrid,
-  // ChartComponent,
-  // ApexAxisChartSeries,
-  // ApexChart,
-  ApexFill,
-  // ApexYAxis,
-  ApexTooltip,
   ApexTitleSubtitle,
-  // ApexXAxis
+  ApexXAxis,
+  ApexFill,
+  ApexNonAxisChartSeries,
+  ApexResponsive,
+  ApexStroke,
+  ApexMarkers
 } from "ng-apexcharts";
 
-type ApexXAxis = {
-  type?: "category" | "datetime" | "numeric";
-  categories?: any;
-  labels?: {
-    style?: {
-      colors?: string | string[];
-      fontSize?: string;
-    };
-  };
-};
+// type ApexXAxis = {
+//   type?: "category" | "datetime" | "numeric";
+//   categories?: any;
+//   labels?: {
+//     style?: {
+//       colors?: string | string[];
+//       fontSize?: string;
+//     };
+//   };
+// };
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
+  title: ApexTitleSubtitle;
+  stroke: ApexStroke;
   dataLabels: ApexDataLabels;
+  tooltip: any;
   plotOptions: ApexPlotOptions;
-  yaxis: ApexYAxis;
-  xaxis: ApexXAxis;
-  grid: ApexGrid;
+  fill: ApexFill;
   colors: string[];
-  legend: ApexLegend;
+  yaxis: ApexYAxis;
+  markers: ApexMarkers;
+  xaxis: ApexXAxis;
 };
 
-// export type ChartOptions1 = {
-//   series: ApexAxisChartSeries;
-//   chart: ApexChart;
-//   xaxis: ApexXAxis;
-//   yaxis: ApexYAxis | ApexYAxis[];
-//   title: ApexTitleSubtitle;
-//   labels: string[];
-//   stroke: any; // ApexStroke;
-//   dataLabels: any; // ApexDataLabels;
-//   fill: ApexFill;
-//   tooltip: ApexTooltip;
-// };
+export type ChartOptions2 = {
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  responsive: ApexResponsive[];
+  labels: any;
+};
 
 
 @Component({
@@ -65,131 +59,127 @@ export type ChartOptions = {
 export class CourseAnalyticsComponent implements OnInit {
   @ViewChild("chart") chart: ChartComponent | any;
   public chartOptions: Partial<ChartOptions> | any;
+  public chartOptions2: Partial<ChartOptions2> | any;
+  public chartOptions3: Partial<ChartOptions2> | any;
+  public chartOptions4: Partial<ChartOptions2> | any;
   // public chartOptions1: Partial<ChartOptions1> | any;
 
-  runs: Array<any> = [];
-  matchid: Array<any> = [];
-  colors: Array<any> = [];
-  runs1: Array<any> = [];
-  matchid1: Array<any> = [];
-  wickets1: Array<any> = [];
-  
+  cpi_list: Array<any> = [];
+  dep_list: Array<any> = [];
+  depl_list_cnt: Array<any> = [];
+  year_list: Array<any> = [];
+  year_cnt: Array<any> = [];
+  topic_list: Array<any> = [];
+  topic_cnt: Array<any> = [];
+
   constructor(private api:ApiService,private route: ActivatedRoute){
     this.chartOptions = {
       series: [
         {
-          name: 'Runs',
-          // data: ["1","22","33","22","3","4","5"]
-          data: this.cpi
+          name: "Series 1",
+          data: [20, 100, 40, 30, 50, 80, 33]
         }
       ],
       chart: {
         height: 350,
-        type: "bar",
-        events: {
-          // click: function(chart, w, e) {
-          //   // console.log(chart, w, e)
-          // }
-        }
-      },
-      colors: ["4","5","6","7"],
-      plotOptions: {
-        bar: {
-          columnWidth: "45%",
-          distributed: true
-        }
+        type: "radar"
       },
       dataLabels: {
-        enabled: false
+        enabled: true
       },
-      legend: {
-        show: false
-      },
-      grid: {
-        show: false
-      },
-      xaxis: {
-        title:{
-          text: "CPI"
-        },
-        // categories: ["1","2","3","4","5","6","7"],
-        categories: this.cpi,
-        labels: {
-          style: {
-            fontSize: "12px"
+      plotOptions: {
+        radar: {
+          size: 140,
+          polygons: {
+            strokeColor: "#e9e9e9",
+            fill: {
+              colors: ["#f8f8f8", "#fff"]
+            }
           }
         }
       },
-      yaxis: {
-        type: "string",
-        title:{
-          text: "Number of students"
-        }
+      title: {
+        text: "Radar with Polygon Fill"
       },
+      colors: ["#FF4560"],
+      markers: {
+        size: 4,
+        colors: ["#fff"],
+        strokeColors: ["#FF4560"],
+        strokeWidth: 2
+      },
+      xaxis: {
+        categories: ['5-6', '6-7', '7-8', '8-9', '9-10'],
+      },
+      yaxis: {
+        tickAmount: 7,
+      }
     };
-    // this.chartOptions1 = {
-    //   series: [
-    //     {
-    //       name: "Runs",
-    //       type: "column",
-    //       data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160]
-    //     },
-    //     {
-    //       name: "Wickets",
-    //       type: "line",
-    //       data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
-    //     }
-    //   ],
-    //   chart: {
-    //     height: 350,
-    //     type: "line"
-    //   },
-    //   stroke: {
-    //     width: [0, 4]
-    //   },
-    //   title: {
-    //     text: "Bowling Statistics"
-    //   },
-    //   dataLabels: {
-    //     enabled: true,
-    //     enabledOnSeries: [1]
-    //   },
-    //   labels: [
-    //     "01 Jan 2001",
-    //     "02 Jan 2001",
-    //     "03 Jan 2001",
-    //     "04 Jan 2001",
-    //     "05 Jan 2001",
-    //     "06 Jan 2001",
-    //     "07 Jan 2001",
-    //     "08 Jan 2001",
-    //     "09 Jan 2001",
-    //     "10 Jan 2001",
-    //     "11 Jan 2001",
-    //     "12 Jan 2001"
-    //   ],
-    //   xaxis: {
-    //     type: "string",
-    //     title:{
-    //       text: "Match ID"
-    //     }
-    //   },
-    //   yaxis: [
-    //     {
-    //       title: {
-    //         text: "Runs"
-    //       }
-    //     },
-    //     {
-    //       opposite: true,
-    //       title: {
-    //         text: "Wickets"
-    //       }
-    //     }
-    //   ]
-    // };
+    this.chartOptions2 = {
+      series: [44, 55, 13, 43, 22],
+      chart: {
+        width: 780,
+        type: "pie"
+      },
+      labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    };
+    this.chartOptions3 = {
+      series: [44, 55, 13, 43, 22],
+      chart: {
+        width: 380,
+        type: "pie"
+      },
+      labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    };
+    this.chartOptions4 = {
+      series: [44, 55, 13, 43, 22],
+      chart: {
+        width: 380,
+        type: "pie"
+      },
+      labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    };
   }
-  data: any; 
+  data : string[] = [];
   cpi=["5-6","6-7","7-8","8-9","9-10"];
 
   ngOnInit(){
@@ -198,7 +188,27 @@ export class CourseAnalyticsComponent implements OnInit {
       c_id=params.get('c_id');
       this.api.getData_0(c_id).subscribe(data=>{
         console.log(data);
-        this.data =data["hist"];
+        var tmp = data["cpi-distri"][0];
+        this.cpi_list.push(tmp["five"]);
+        this.cpi_list.push(tmp["six"]);
+        this.cpi_list.push(tmp["seven"]);
+        this.cpi_list.push(tmp["eight"]);
+        this.cpi_list.push(tmp["nine"]);
+        var tmp = data["dept-count"];
+        for(let i=0;i<tmp.length;i++){
+          this.dep_list.push(tmp[i]["department"]);
+          this.depl_list_cnt.push(Number(tmp[i]["count"]));
+        }
+        var tmp = data["total-students"];
+        for(let i=0;i<tmp.length;i++){
+          this.year_list.push('Year '+tmp[i]["year"]);
+          this.year_cnt.push(Number(tmp[i]["count"]));
+        }
+        var tmp = data["ques-per-topic"];
+        for(let i=0;i<tmp.length;i++){
+          this.topic_list.push('Topic '+tmp[i]["t_id"]);
+          this.topic_cnt.push(Number(tmp[i]["ques_cnt"]));
+        }
         // for(let i=0;i<this.data3.length;i++){
         //   // console.log(this.data3[i]["match_id"]);
         //   this.matchid.push(this.data3[i]["match_id"]);
@@ -221,23 +231,18 @@ export class CourseAnalyticsComponent implements OnInit {
         this.chartOptions.series = [
           {
             name: 'CPI Distribution',
-            data: this.data
+            data: this.cpi_list
           }
         ];
-        this.chartOptions.colors=this.colors;
-        this.chartOptions.xaxis={
-          title:{
-            text: "CPI"
-          },
-            categories: this.cpi,
-            // categories: this.matchid,
-            labels: {
-              style: {
-                fontSize: "12px"
-              }
-            }
-          }
-        
+        this.chartOptions2.series = this.depl_list_cnt;
+        this.chartOptions2.labels = this.dep_list;
+
+        this.chartOptions3.series = this.year_cnt;
+        this.chartOptions3.labels = this.year_list;
+
+        this.chartOptions4.series = this.topic_cnt;
+        this.chartOptions4.labels = this.topic_list;
+        //console.log(this.chartOptions3);
         // this.chartOptions1.series = [
         //   {
         //     name: "Runs",
