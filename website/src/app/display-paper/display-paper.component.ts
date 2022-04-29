@@ -14,7 +14,8 @@ export class DisplayPaperComponent implements OnInit {
   data : any;
   ngOnInit(): void {
     console.log(this.params);
-    this.api.getpaper(this.data).subscribe(data=>{
+    // console.log(this.params.id);
+    this.api.getpaper(this.params).subscribe(data=>{
       console.log("dsfadf");
       console.log(data);
       this.data = data;

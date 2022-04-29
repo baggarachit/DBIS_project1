@@ -9,7 +9,9 @@ export class ApiService {
 
   constructor(private http:HttpClient) { }
   getpaper(e_id:any) : Observable<any>{
-    let url="http://localhost:3080/temp_api/"+String(e_id);
+    console.log("fjfjf");
+    console.log(e_id);
+    let url="http://localhost:3080/getpaper/"+e_id["Difficulty"]+"/"+e_id["Duration"]+"/"+e_id["Marks"]+"/"+e_id["Topics"];
     return this.http.get<any>(url);
   }
 }

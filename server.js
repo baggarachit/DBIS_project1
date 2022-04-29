@@ -5,7 +5,7 @@ function recurse(t,i,currsum,ll){
     queslist.push(ll);
   }
   if(currsum<global.sum && i<t.length){
-    recurse(t,i+1,currsum+t[i],ll.concat(t[i]));
+    recurse(t,i+1,currsum+t[i],ll.concat(i));
     recurse(t,i+1,currsum,ll);
   }
 }
@@ -14,7 +14,7 @@ const {Client} = require('pg')
 
 const client = new Client({
   host: "localhost",
-  user : "sahil32",
+  user : "postgres",
   port : 5432,
   password : "pseudotourist",
   database : "postgres"
@@ -716,6 +716,49 @@ app.post('/question/add',function(req,res1){
   // })
   // console.log(req.body);
 });
+
+app.get('/getpaper/:difficulty/:duration/:marks/:topics',function(req,res1){
+  console.log("hh");
+  console.log(req.params);
+  var difficulty = parseFloat(req.params.difficulty);
+  var duration = parseInt(req.params.duration);
+  var marks = parseInt(req.params.marks);
+  var topics = req.params.topics;
+  var lis = topics.split(",");
+  // var n = lis.length;
+  var time = [10,10,10,20,20,20,30,30,30];
+  var diff = [1,2,3,3,4,2,2,3,4];
+  for(var i=-0.1;i<=0.1;i+=0.1){
+    for(var j=-1;j<=1;j+=1){
+      global.sum = duration+j;
+      var req_diff = difficulty+i;
+      global.queslist = [];
+      recurse(time,0,0,[]);
+      for(var ii = 0;ii<global.queslist.length;ii++){
+        var lis = global.queslist[ii];
+        var sumdiff = 0.0;
+        // console.log(lis);
+        for(var jj = 0 ; jj < lis.length;jj++){
+          var ind = lis[jj];
+          sumdiff += diff[ind];
+        }
+        // console.log(sumdiff);
+        if(sumdiff==lis.length*req_diff){
+          var allot_marks = [];
+          for(var iii = 0 ;iii<lis.length;iii++){
+            allot_marks.push(time[lis[iii]]*marks/(duration));
+
+          }
+          console.log(lis);
+          console.log(allot_marks);
+          res1.status(200).json({"ques_lis":lis,"allot_marks":allot_marks});
+          break;
+        }
+      }
+    }
+  }
+}
+);
 
 
 app.listen(port, () => {
