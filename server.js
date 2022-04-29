@@ -811,7 +811,17 @@ app.get('/getpaper/:difficulty/:duration/:marks/:topics/:c_id',function(req,res1
                       string = `insert into exam_course (e_id,c_id) values (${cnt+1},${cid})`;
                       client.query(string,(err,res12)=>{
                         if(!err){
-                          console.log("yayayyy");
+                          string = ``;
+                          for(var i = 0 ; i<lis.length;i++){
+                            string = string + `insert into ques_exam (q_id,e_id) values (${lis[i]},${cnt+1});`;
+                          }
+                          client.query(string,(err,res13)=>{
+                            if(!err){
+                              console.log("done");
+                            } else{
+                              console.log(err);
+                            }
+                          });
                         } else{
                           console.log("sadgeeee");
                         }
