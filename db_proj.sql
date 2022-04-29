@@ -54,7 +54,7 @@ CREATE TABLE Courses (
 CREATE TABLE Question (
     id INT ,
     question_text TEXT,
-    difficulty INT CHECK(difficulty>=0 and difficulty<=5),
+    difficulty numeric(3,1) CHECK(difficulty>=0 and difficulty<=5),
     time_taken INT DEFAULT 0,
     num_feedbacks INT,
     Primary key(id)
@@ -178,7 +178,7 @@ BEGIN
 
     UPDATE Question SET 
         num_feedbacks = (SELECT num_feedbacks+1 FROM Question WHERE id = new.q_id),
-        difficulty = (SELECT (difficulty*num_feedbacks + new.difficulty)/(num_feedbacks+1) FROM Question WHERE id = new.q_id),
+        difficulty = (SELECT (difficulty*1.0*num_feedbacks + new.difficulty*1.0)/(num_feedbacks*1.0+1) FROM Question WHERE id = new.q_id),
         time_taken = (SELECT (time_taken*num_feedbacks + new.time_taken)/(num_feedbacks+1) FROM Question WHERE id = new.q_id)
     where ID = new.q_id;
     -- INSERT INTO logs values (new.q_id);

@@ -134,8 +134,6 @@ app.get('/exam/:e_id', (req,res1) => {
   });
 });
 
-
-
 app.get('/isfeed/:u_id/:q_id', (req,res1) => {
   var ud = req.params.u_id;
   var qd = req.params.q_id;
@@ -788,7 +786,7 @@ app.get('/getpaper/:difficulty/:duration/:marks/:topics/:c_id',function(req,res1
               client.query(string,(err,res10)=>{
                 if(!err){
                   var cnt = parseInt(res10.rows[0].count);
-                  string = `insert into exams (id,pattern,question_count,difficulty,duration,marks) values (${cnt+1},'Objective',${lis.length},${req_diff},${global.sum},${marks})`;
+                  string = `insert into exams (id,pattern,question_count,difficulty,duration,marks) values (${cnt+1},'Objective',${lis.length},${req_diff},${duration},${marks})`;
                   client.query(string,(err,res11)=>{
                     if(!err){
                       string = `insert into exam_course (e_id,c_id) values (${cnt+1},${cid})`;
@@ -882,6 +880,58 @@ app.get('/course/:c_id/analytics', (req,res1) => {
   });
 });
 
+app.post('/feedback/add/:qid/:sid',function(req,res1){
+  var body = req.body;
+  var qid = req.params.qid;
+  var sid = req.params.sid;
+  var diff = body["Difficulty_faced"];
+  var time = body["Time_taken"];
+  // console.log(body["solved"]);
+  // console.log(sid);
+  // var diff = bod
+  var flag = 0;
+  if(body["solved"]=""){
+    flag = 0;
+  } else{
+    flag = 1;
+  }
+  var string = `select count(*) from feedback`;
+  client.query(string,(err,res)=>{
+    if(!err){
+      var cnt = parseInt(res.rows[0].count);
+      string = `insert into feedback (feedback_id,s_id,q_id,time_taken,difficulty,solved) values (${cnt+1},${sid},${qid},${diff},${time},${flag})`;
+      // console.log(string);
+      client.query(string,(err,res)=>{
+        if(!err){
+          res1.status(200).send("success");
+        } else{
+          res1.status(200).send("error");
+        }
+      });
+    } else{
+      res1.status(200).send("error");
+    }
+  });
+});
+
+app.post('/exam_analytics/:e_id',function(req,res1){
+  // console.log(req.body);
+  // var body = req.body;
+  var cid = req.params.e_id;
+  var string=`select question.difficulty,count(question.difficulty) from ques_exam,question where ques_exam.q_id=question.id and e_id = ${cid}
+  group by e_id,difficulty;`;
+  // console.log(string);
+  // string="insert into venue (venue_name,city_name,country_name,capacity) values ('yo1','to3','yo2',10000)";
+  client.query(string,(err,res)=>{
+    if(!err){
+      console.log(res.rows);
+      // res1.send({result:"success"});
+    } else{
+      // console.log(err);
+      res1.send({result:"error"});
+    }
+  })
+});
 
 
 app.listen(port, () => {

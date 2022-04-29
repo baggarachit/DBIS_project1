@@ -1,4 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
+import { MatSelectModule } from '@angular/material/select';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { ApiService } from './api.service';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -16,18 +18,10 @@ import {
   ApexStroke,
   ApexMarkers
 } from "ng-apexcharts";
-
-// type ApexXAxis = {
-//   type?: "category" | "datetime" | "numeric";
-//   categories?: any;
-//   labels?: {
-//     style?: {
-//       colors?: string | string[];
-//       fontSize?: string;
-//     };
-//   };
-// };
-
+interface drop_option {
+  value: string;
+  viewValue: string;
+}
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -61,9 +55,19 @@ export class CourseAnalyticsComponent implements OnInit {
   public chartOptions: Partial<ChartOptions> | any;
   public chartOptions2: Partial<ChartOptions2> | any;
   public chartOptions3: Partial<ChartOptions2> | any;
-  public chartOptions4: Partial<ChartOptions2> | any;
-  // public chartOptions1: Partial<ChartOptions1> | any;
+  public chartOptions4: Partial<ChartOptions2> | any; 
+  
+  onSelectEvent(value: any){
+    this.analytic_option = value;
+  }
 
+  public drop_options: drop_option[] = [
+    {value: '1', viewValue: 'c1'},
+    {value: '2', viewValue: 'c2'},
+    {value: '3', viewValue: 'c3'},
+    {value: '4', viewValue: 'c4'},
+  ];
+  analytic_option:string="1";
   cpi_list: Array<any> = [];
   dep_list: Array<any> = [];
   depl_list_cnt: Array<any> = [];
@@ -73,6 +77,7 @@ export class CourseAnalyticsComponent implements OnInit {
   topic_cnt: Array<any> = [];
 
   constructor(private api:ApiService,private route: ActivatedRoute){
+    
     this.chartOptions = {
       series: [
         {
@@ -209,25 +214,6 @@ export class CourseAnalyticsComponent implements OnInit {
           this.topic_list.push('Topic '+tmp[i]["t_id"]);
           this.topic_cnt.push(Number(tmp[i]["ques_cnt"]));
         }
-        // for(let i=0;i<this.data3.length;i++){
-        //   // console.log(this.data3[i]["match_id"]);
-        //   this.matchid.push(this.data3[i]["match_id"]);
-        //   if(this.data3[i]["runs_scored_low"]!=0){
-        //     this.runs.push(this.data3[i]["runs_scored_low"]);
-        //     this.colors.push("#008FFB");
-        //   } else if(this.data3[i]["runs_scored_middle"]!=0){
-        //     this.runs.push(this.data3[i]["runs_scored_middle"]);
-        //     this.colors.push("#00E396");
-        //   } else{
-        //     this.runs.push(this.data3[i]["runs_scored_high"]);
-        //     this.colors.push("#FEB019");
-        //   }
-        // }
-        // for(let i=0;i<this.data5.length;i++){
-        //   this.matchid1.push(this.data5[i]["match_id"]);
-        //   this.runs1.push(this.data5[i]["runs"]);
-        //   this.wickets1.push(this.data5[i]["wickets"]);
-        // }
         this.chartOptions.series = [
           {
             name: 'CPI Distribution',
@@ -242,20 +228,6 @@ export class CourseAnalyticsComponent implements OnInit {
 
         this.chartOptions4.series = this.topic_cnt;
         this.chartOptions4.labels = this.topic_list;
-        //console.log(this.chartOptions3);
-        // this.chartOptions1.series = [
-        //   {
-        //     name: "Runs",
-        //     type: "column",
-        //     data: this.runs1
-        //   },
-        //   {
-        //     name: "Wickets",
-        //     type: "line",
-        //     data: this.wickets1
-        //   }
-        // ];
-        // this.chartOptions1.labels = this.matchid1;
       })
     });
   }

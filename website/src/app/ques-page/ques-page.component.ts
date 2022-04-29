@@ -59,6 +59,16 @@ export class QuesPageComponent implements OnInit {
     Time_taken: new FormControl(''),
     solved: new FormControl(''),
   });
-  onSubmit(){}
+  onSubmit(){
+    this.api.postreq(this.empForm.value, this.data[0].q_id, localStorage.getItem('token')).subscribe(res=>{
+      console.log(res["result"]);
+      // maybe insert window alert if invalid subtopic;
+      if(res["result"]=="error invalid subtopic"){
+        alert("invalid subtopic");
+      }
+    });
+    this.empForm.reset();
+    this.feedback_given=true;
+  }
 
 }

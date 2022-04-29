@@ -12,8 +12,14 @@ export class CoursePageComponent implements OnInit {
   constructor(private router: Router, private api: ApiService, private route: ActivatedRoute) { }
   data: any;
   c_id: any;
+  flag = true;
   
   ngOnInit(): void {
+    if(localStorage.getItem('role')=="professor"){
+      this.flag=false;
+    } else{
+      this.flag=true;
+    }
     const routeParams = this.route.snapshot.paramMap;
     const courseIdFromRoute = Number(routeParams.get('c_id'));
     this.c_id = courseIdFromRoute;
