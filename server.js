@@ -802,16 +802,40 @@ app.get('/course/:c_id/analytics', (req,res1) => {
   sum((cpi>7 and cpi<8)::int) as seven,
   sum((cpi>8 and cpi<9)::int) as eight,
   sum((cpi>9 and cpi<=10)::int) as nine
-  from student,student_course where c_id = ${cid} and student.id=student_course.s_id`;
-
+  from student,student_course where c_id = ${cid} and student.id=student_course.s_id;`;
+  dic={};
   client.query(string,(err, res) =>{
     if(!err){
-      res1.status(200).json({"hist":res.rows});
+      // res1.status(200).json({"hist":res.rows});
+      dic["cpi-distri"]=res.rows;
+      string = `select department,count(*) from student,student_course 
+      where c_id = ${cid} and id=student_course.s_id group by department;`;
+      client.query(string,(err, res) =>{
+        if(!err){
+          dic["dept-count"]=res.rows;
+          if(!err){
+            string = `select year,count(*) from student,student_course 
+            where c_id = ${cid} and id=student_course.s_id group by year;`;
+            client.query(string,(err, res) =>{
+              if(!err){
+                dic["total-students"]=res.rows;
+                res1.status(200).send(dic);
+              } else{
+                res1.send("error");
+              }
+            }); 
+          }
+        }
+        else{
+          res1.send("error");
+        }
+      });
     } else{
       res1.send("error");
     }
   });
 });
+
 
 
 app.listen(port, () => {
