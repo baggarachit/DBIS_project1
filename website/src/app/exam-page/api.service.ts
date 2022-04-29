@@ -12,4 +12,8 @@ export class ApiService {
     let url="http://localhost:3080/exam/"+String(e_id);
     return this.http.get(url);
   }
+  getData_1(e_id:any) : Observable<any>{
+    let url="http://localhost:3080/exam_analytics/"+String(e_id);
+    return this.http.get(url);
+  }
 }

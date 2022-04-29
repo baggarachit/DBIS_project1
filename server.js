@@ -14,7 +14,7 @@ const {Client} = require('pg')
 
 const client = new Client({
   host: "localhost",
-  user : "postgres",
+  user : "sahil32",
   port : 5432,
   password : "rajabose69",
   database : "proj"
@@ -914,7 +914,7 @@ app.post('/feedback/add/:qid/:sid',function(req,res1){
   });
 });
 
-app.post('/exam_analytics/:e_id',function(req,res1){
+app.get('/exam_analytics/:e_id',function(req,res1){
   // console.log(req.body);
   // var body = req.body;
   var cid = req.params.e_id;
@@ -924,8 +924,8 @@ app.post('/exam_analytics/:e_id',function(req,res1){
   // string="insert into venue (venue_name,city_name,country_name,capacity) values ('yo1','to3','yo2',10000)";
   client.query(string,(err,res)=>{
     if(!err){
-      console.log(res.rows);
-      // res1.send({result:"success"});
+      //console.log(res.rows);
+      res1.send(res.rows);
     } else{
       // console.log(err);
       res1.send({result:"error"});
