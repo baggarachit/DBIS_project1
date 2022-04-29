@@ -14,10 +14,10 @@ const {Client} = require('pg')
 
 const client = new Client({
   host: "localhost",
-  user : "sahil32",
+  user : "postgres",
   port : 5432,
-  password : "rajabose69",
-  database : "proj"
+  password : "pseudotourist",
+  database : "postgres"
 })
 
 client.connect();
@@ -39,12 +39,8 @@ app.get('/participant/:uid/:pwd', (req,res1) => {
   var ud = req.params.uid;
   var pd = req.params.pwd;
   console.log(ud);
-  console.log("here");
-
   // var pwd = req.params.pwd;
-  var string = "select * from participant where id = "+ud+" and password = '"+pd+"';";
-  console.log("here");
-  console.log(string);
+  var string = "select * from participant where id = "+ud+" and password = '"+pd+"'";
   client.query(string,(err, res) =>{
     if(!err){
       // global.partid = parseInt(ud);
@@ -64,11 +60,9 @@ app.get('/courses/:role/:uid', (req,res1) => {
   global.partid = parseInt(ud);
   
   console.log(ud);
-  
   // var pwd = req.params.pwd;
-  var string = "select * from "+String(role)+"_course as SC, courses as C where SC.c_id=C.id and SC."+String(role)[0]+"_id = "+ud+";";
+  var string = "select * from "+String(role)+"_course as SC, courses as C where SC.c_id=C.id and SC."+String(role)[0]+"_id = "+ud;
   console.log(string);
-  console.log("here");
   client.query(string,(err, res) =>{
     if(!err){
       // console.log("yaya");
@@ -129,6 +123,31 @@ app.get('/exam/:e_id', (req,res1) => {
     if(!err){
       res1.send(res.rows);
     } else{
+      res1.send("error");
+    }
+  });
+});
+
+app.get('/ques/:q_id', (req,res1) => {
+  var qd = req.params.q_id;
+  var dic={};
+  // console.log(ud);
+  var string = "select * from question as Q, ques_subtopic QS, subtopic_topic as ST where Q.id=QS.q_id and QS.st_id = ST.st_id and Q.id = "+qd;
+  client.query(string,(err, res) =>{
+    if(!err){
+      dic["data1"]=res.rows;
+      string = `select count(*) from ques_exam as QE where QE.q_id=${qd}`;
+      client.query(string,(err, res2) =>{
+        if(!err){
+          dic["data2"]=res2.rows;
+          console.log(dic);
+          res1.send(dic);
+        } else{
+          dic["data2"]="error";
+        }
+    })
+   } else{
+     dic["data1"]="error";
       res1.send("error");
     }
   });
@@ -960,24 +979,6 @@ app.get('/exam_analytics/:eid',function(req,res1){
   })
 });
 
-app.get('/exam_analytics/:e_id',function(req,res1){
-  // console.log(req.body);
-  // var body = req.body;
-  var cid = req.params.e_id;
-  var string=`select question.difficulty,count(question.difficulty) from ques_exam,question where ques_exam.q_id=question.id and e_id = ${cid}
-  group by e_id,difficulty;`;
-  // console.log(string);
-  // string="insert into venue (venue_name,city_name,country_name,capacity) values ('yo1','to3','yo2',10000)";
-  client.query(string,(err,res)=>{
-    if(!err){
-      //console.log(res.rows);
-      res1.send(res.rows);
-    } else{
-      // console.log(err);
-      res1.send({result:"error"});
-    }
-  })
-});
 
 app.get('/question_analytics/:q_id',function(req,res1){
   // console.log(req.body);
