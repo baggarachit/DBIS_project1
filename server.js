@@ -858,6 +858,46 @@ app.get('/getpaper/:difficulty/:duration/:marks/:topics/:c_id',function(req,res1
 }
 );
 
+app.post('/feedback/add/:qid/:sid',function(req,res1){
+  var body = req.body;
+  var qid = req.params.qid;
+  var sid = req.params.sid;
+  var diff = body["Difficulty_faced"];
+  var time = body["Time_taken"];
+  // console.log(body["solved"]);
+  // console.log(sid);
+  // var diff = bod
+  var flag = 0;
+  if(body["solved"]=""){
+    flag = 0;
+  } else{
+    flag = 1;
+  }
+  var string = `select count(*) from feedback`;
+  client.query(string,(err,res)=>{
+    if(!err){
+      var cnt = parseInt(res.rows[0].count);
+      string = `insert into feedback (feedback_id,s_id,q_id,time_taken,difficulty,solved) values (${cnt+1},${sid},${qid},${diff},${time},${flag})`;
+      // console.log(string);
+      client.query(string,(err,res)=>{
+        if(!err){
+          res1.status(200).send("success");
+        } else{
+          res1.status(200).send("error");
+        }
+      });
+    } else{
+      res1.status(200).send("error");
+    }
+  });
+});
+
+
+
+app.listen(port, () => {
+    console.log(`Server listening on the port::${port}`);
+});
+
 app.get('/course/:c_id/analytics', (req,res1) => {
   var cid = req.params.c_id;
   var string = `select 
@@ -909,42 +949,84 @@ app.get('/course/:c_id/analytics', (req,res1) => {
   });
 });
 
-app.post('/feedback/add/:qid/:sid',function(req,res1){
-  var body = req.body;
-  var qid = req.params.qid;
-  var sid = req.params.sid;
-  var diff = body["Difficulty_faced"];
-  var time = body["Time_taken"];
-  // console.log(body["solved"]);
-  // console.log(sid);
-  // var diff = bod
-  var flag = 0;
-  if(body["solved"]=""){
-    flag = 0;
-  } else{
-    flag = 1;
-  }
-  var string = `select count(*) from feedback`;
+app.get('/exam_analytics/:eid',function(req,res1){
+  // console.log(req.body);
+  // var body = req.body;
+  var cid = req.params.eid;
+  var string=`select question.difficulty,count(question.difficulty) from ques_exam,question where ques_exam.q_id=question.id and e_id = ${cid}
+  group by e_id,difficulty;`;
+  // console.log(string);
+  // string="insert into venue (venue_name,city_name,country_name,capacity) values ('yo1','to3','yo2',10000)";
+  dic={};
   client.query(string,(err,res)=>{
     if(!err){
-      var cnt = parseInt(res.rows[0].count);
-      string = `insert into feedback (feedback_id,s_id,q_id,time_taken,difficulty,solved) values (${cnt+1},${sid},${qid},${diff},${time},${flag})`;
-      // console.log(string);
+      // console.log(res.rows);
+      dic["difficulty"]=res.rows;
+      string=`select difficulty,time_taken from question,ques_exam where e_id = ${cid} and question.id = ques_exam.q_id;`;
       client.query(string,(err,res)=>{
         if(!err){
-          res1.status(200).send("success");
+          dic["time"]=res.rows;
+          res.send(dic);
         } else{
           res1.status(200).send("error");
         }
       });
+      // res1.send({result:"success"});
     } else{
-      res1.status(200).send("error");
+      // console.log(err);
+      res1.send({result:"error"});
     }
-  });
+  })
 });
 
 
-
-app.listen(port, () => {
-    console.log(`Server listening on the port::${port}`);
+app.get('/question_analytics/:q_id',function(req,res1){
+  // console.log(req.body);
+  // var body = req.body;
+  var qid = req.params.q_id;
+  var string=`select 100*avg(solved) as percent_solve from student_feedback where q_id = ${qid};`;
+  // console.log(string);
+  // string="insert into venue (venue_name,city_name,country_name,capacity) values ('yo1','to3','yo2',10000)";
+  dic={};
+  client.query(string,(err,res)=>{
+    if(!err){
+      console.log(res.rows);
+      dic["percent_solve"]=res.rows[0].percent_solve;
+      string=`select count(*) as total_students from student_feedback where q_id = ${qid};`;
+      client.query(string,(err,res)=>{
+        if(!err){
+          dic["total_students"]=res.rows[0].total_students;
+          string = `select
+                    sum((cpi>=5 and cpi<6)::int) as five,
+                    sum((cpi>=6 and cpi<7)::int) as six,
+                    sum((cpi>7 and cpi<8)::int) as seven,
+                    sum((cpi>8 and cpi<9)::int) as eight,
+                    sum((cpi>9 and cpi<=10)::int) as nine
+                    from student_feedback where solved = 1 and q_id = ${qid};`;
+          client.query(string,(err,res)=>{
+            if(!err){
+              dic["cpi_solved"]=res.rows;
+              string = `select department,count(*) from student_feedback where solved = '1' and q_id = ${qid} group by department;`;
+              client.query(string,(err,res)=>{
+                if(!err){
+                  dic["dept_solved"]=res.rows;
+                  res1.status(200).send(dic);
+                } else{
+                  res1.status(200).send("error");
+                }
+              });
+            }else{
+              res1.status(200).send("error");
+            } 
+          });
+        } else{
+          res1.send({result:"error"});
+        }
+      })
+      // res1.send({result:"success"});
+    } else{
+      // console.log(err);
+      res1.send({result:"error"});
+    }
+  })
 });
