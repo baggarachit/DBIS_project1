@@ -768,7 +768,7 @@ app.get('/getpaper/:difficulty/:duration/:marks/:topics/:c_id',function(req,res1
       console.log(qids);
       var lis = [];
       var flag = 0;
-      for(var i=-0.2;i<=0.2;i+=0.1){
+      for(var i=-1;i<=1;i+=1){
         for(var j=-3;j<=3;j+=1){
           global.sum = duration+j;
           var req_diff = difficulty+i;
