@@ -71,10 +71,10 @@ export class CourseAnalyticsComponent implements OnInit {
   }
 
   public drop_options: drop_option[] = [
-    {value: '1', viewValue: 'c1'},
-    {value: '2', viewValue: 'c2'},
-    {value: '3', viewValue: 'c3'},
-    {value: '4', viewValue: 'c4'},
+    {value: '1', viewValue: 'CPI-Student Distribution'},
+    {value: '2', viewValue: 'Department-Student Distribution'},
+    {value: '3', viewValue: 'Year-Student Distribution'},
+    {value: '4', viewValue: 'Topic-Question Distribution'},
   ];
   analytic_option:string="1";
   cpi_list: Array<any> = [];
@@ -206,6 +206,7 @@ export class CourseAnalyticsComponent implements OnInit {
       }
     };
     this.chartOptions2 = {
+      
       series: [44, 55, 13, 43, 22],
       chart: {
         width: 780,

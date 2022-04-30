@@ -20,14 +20,35 @@
       </tr>
     </table>
     <br>
-    <div id="chart">
-      <apx-chart
-        [series]="chartOptions.series"
-        [chart]="chartOptions.chart"
-        [labels]="chartOptions.labels"
-        [responsive]="chartOptions.responsive"
-      ></apx-chart>
+    <div *ngIf="role!='student'"class="float-container">
+
+      <div class="float-child">
+        <h5 style="margin-left: 50px;">Difficulty-Question Distribution</h5>
+        <div id="chart">
+          <apx-chart
+            [series]="chartOptions.series"
+            [chart]="chartOptions.chart"
+            [labels]="chartOptions.labels"
+            [responsive]="chartOptions.responsive"
+          ></apx-chart>
+        </div>
+      </div>
+      
+      <div class="float-child">
+        <h5 style="text-align: center;">Time-Difficulty Scatter plot</h5>
+        <div id="chart" style="width: 700px">
+          <apx-chart
+            [series]="chartOptions2.series"
+            [chart]="chartOptions2.chart"
+            [xaxis]="chartOptions2.xaxis"
+            [yaxis]="chartOptions2.yaxis"
+          ></apx-chart>
+        </div>
+      </div>
+      
     </div>
+
+
   </body>
 
   

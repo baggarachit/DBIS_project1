@@ -60,4 +60,13 @@ table, th, td {
   body{
     padding-top:100px;
    }
-   h2,h3 {text-align: center;}
+  h2,h3 {text-align: center;}
+  .float-container {
+    padding: 20px;
+}
+
+.float-child {
+    width: 50%;
+    float: left;
+    padding: 20px;
+}  

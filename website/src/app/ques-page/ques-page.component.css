@@ -136,3 +136,14 @@ table, th, td {
       margin-top: 0;
     }
   }
+  .chrt-container {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+  
+  .msec {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }

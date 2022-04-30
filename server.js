@@ -14,10 +14,10 @@ const {Client} = require('pg')
 
 const client = new Client({
   host: "localhost",
-  user : "postgres",
+  user : "sahil32",
   port : 5432,
-  password : "pseudotourist",
-  database : "postgres"
+  password : "rajabose69",
+  database : "proj"
 })
 
 client.connect();
@@ -864,11 +864,11 @@ app.post('/feedback/add/:qid/:sid',function(req,res1){
   var sid = req.params.sid;
   var diff = body["Difficulty_faced"];
   var time = body["Time_taken"];
-  // console.log(body["solved"]);
+  console.log(body["solved"]);
   // console.log(sid);
   // var diff = bod
   var flag = 0;
-  if(body["solved"]=""){
+  if(body["solved"]==""){
     flag = 0;
   } else{
     flag = 1;
@@ -877,12 +877,14 @@ app.post('/feedback/add/:qid/:sid',function(req,res1){
   client.query(string,(err,res)=>{
     if(!err){
       var cnt = parseInt(res.rows[0].count);
-      string = `insert into feedback (feedback_id,s_id,q_id,time_taken,difficulty,solved) values (${cnt+1},${sid},${qid},${diff},${time},${flag})`;
-      // console.log(string);
+      string = `insert into feedback (feedback_id,s_id,q_id,time_taken,difficulty,solved) values (${cnt+1},${sid},${qid},${time},${diff},${flag})`;
+      console.log(string);
       client.query(string,(err,res)=>{
         if(!err){
+          console.log("success");
           res1.status(200).send("success");
         } else{
+          console.log("oops");
           res1.status(200).send("error");
         }
       });
@@ -966,7 +968,7 @@ app.get('/exam_analytics/:eid',function(req,res1){
       client.query(string,(err,res)=>{
         if(!err){
           dic["time"]=res.rows;
-          res.send(dic);
+          res1.send(dic);
         } else{
           res1.status(200).send("error");
         }

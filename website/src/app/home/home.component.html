@@ -15,7 +15,7 @@
       <br>
       <a [routerLink]="'/course/'+tile.id"> View Exams</a>
       <br>
-      <a [routerLink]="'/course/'+tile.id+'/analytics/'"> Show course analytics </a>
+      <a *ngIf="role=='prof'||tile.ista" [routerLink]="'/course/'+tile.id+'/analytics/'"> Show course analytics </a>
       
       <h6 *ngIf="tile.ista"><pre> (as TA) </pre></h6>
     </div>

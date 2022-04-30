@@ -29,6 +29,9 @@ export class AddQuesComponent implements OnInit {
       if(res["result"]=="error invalid subtopic"){
         alert("invalid subtopic");
       }
+      else{
+        alert("new question added successfully");
+      }
     });
     this.empForm.reset();
   }

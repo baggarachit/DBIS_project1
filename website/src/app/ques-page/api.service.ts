@@ -12,6 +12,10 @@ import { Form } from './form'
 export class ApiService {
 
   constructor(private http:HttpClient) { }
+  getData_00(q_id:any) : Observable<any>{
+    let url="http://localhost:3080/question_analytics/"+String(q_id);
+    return this.http.get(url);
+  }
   getData_0(q_id:any) : Observable<any>{
     let url="http://localhost:3080/ques/"+String(q_id);
     return this.http.get(url);

@@ -74,7 +74,7 @@ question_table = []
 for i in range(num_questions) :
 	question_text = "What is "
 	difficulty = random.randint(1,5)
-	solve_time = random.randint(1,20)
+	solve_time = difficulty*5+int(random.gauss(0,5))
 	num1 = random.randint(1,10000000);
 	num2 = random.randint(1,10000000);
 	question_text += str(num1)+" + "+str(num2)+" ?"
@@ -103,7 +103,7 @@ for i in range(num_exams) :
 		pattern = 'Subjective'
 	question_count = random.randint(5,10)
 	difficulty = random.randint(1,5)
-	duration = difficulty*15+int(random.gauss(0,5))
+	duration = difficulty*5+int(random.gauss(0,5))
 	marks = random.randint(2,3)*50
 	exams_table.append([i+1,pattern,question_count,difficulty,duration,marks])
 
@@ -166,7 +166,7 @@ for i in range(num_questions) :
 		p = random.random()
 		difficulty = random.randint(1,5)
 		solved = 0 
-		time_taken = random.randint(1,20)
+		time_taken = difficulty*5+int(random.gauss(0,5))
 		if p <= 0.5 :
 			solved = 1
 		feedback_table.append([feedback_id,s_id,q_id,time_taken,difficulty,solved])
