@@ -292,9 +292,9 @@ export class QuesPageComponent implements OnInit {
       // maybe insert window alert if invalid subtopic;
       if(res["result"]=="error invalid subtopic"){
         alert("invalid subtopic");
-        window.location.reload();
+       
       }
-      window.location.reload();
+ 
     });
     this.empForm.reset();
     this.feedback_given=true;
